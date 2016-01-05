@@ -20,8 +20,8 @@ public class NotesDatabaseHelper extends SQLiteOpenHelper {
 
     // create table expression
     private static final String CREATE_TB_NOTES = "create table" + TB_NOTES
-            + "(" + ID + "integer primary key autoincrement," + CONTENT
-            + "varchar," + ALARM_TIME + "long ," + CREATE_TIME + "long )";
+            + "(" + ID + " integer primary key autoincrement," + CONTENT
+            + " varchar," + ALARM_TIME + " long," + CREATE_TIME + " long )";
 
     public NotesDatabaseHelper(Context context, String name,
             CursorFactory factory, int version) {
