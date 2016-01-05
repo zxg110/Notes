@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <RelativeLayout
+            android:id="@+id/title_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/title_layout_height"
+            android:background="@drawable/bg_title_tab"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:id="@+id/logo_img"
+                android:layout_width="@dimen/logo_img_layout_width"
+                android:layout_height="@dimen/logo_img_layout_height"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="@dimen/image_margin"
+                android:background="@drawable/ic_notes"
+                android:visibility="visible" />
+
+ <!--           <com.phicomm.library.back.PhiBackView
+                android:id="@+id/back_btn_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >  
+
+            </com.phicomm.library.back.PhiBackView> --> 
+
+			<!-- 记事本标题布局 -->
+            <RelativeLayout
+                android:id="@+id/note_title_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/list_layout_height"
+                android:gravity="center" >
+
+                <TextView
+                    android:id="@+id/title_name_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:text="@string/app_name"
+                    android:textColor="@color/font_size_color"
+                    android:textSize="@dimen/normal_title_text_size" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/button_layout_height"
+                android:gravity="center_vertical" >
+
+                <Button
+                    android:id="@+id/select_all_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/select_all_btn_marginRight"
+                    android:background="@null"
+                    android:drawableRight="@drawable/btn_select_all"
+                    android:minHeight="0dp"
+                    android:minWidth="0dp"
+                    android:text="@string/select_all"
+                    android:textColor="@color/font_size_color"
+                    android:textSize="@dimen/select_all_btn_text_size"
+                    android:visibility="visible" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/button_layout_height"
+            android:visibility="gone"
+            android:gravity="center_vertical" >
+
+            <ImageButton
+                android:id="@+id/new_note_imgb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/new_note_imgb_marginRight"
+                android:background="@drawable/new_btn_bg" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+</RelativeLayout>
