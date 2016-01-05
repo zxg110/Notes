@@ -6,12 +6,18 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.Window;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 /**
- * NotesListActivity,APPÖ÷½çÃæ
+ * NotesListActivity
  * @author zxg
  *
  */
 public class MainActivity extends Activity {
+	//no notes
+	private LinearLayout noNotesLayout;
+	//å¤‡å¿˜å½•åˆ—è¡¨
+	private ListView notesList;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -25,5 +31,8 @@ public class MainActivity extends Activity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-
+	private void initView(){
+		noNotesLayout = (LinearLayout)findViewById(R.id.head_view);
+		notesList = (ListView)findViewById(R.id.notes_listview);
+	}
 }

@@ -27,16 +27,28 @@
             android:layout_height="wrap_content"
             layout="@layout/note_guide_layout"
             android:visibility="gone" />
+
+        <ListView
+            android:id="@+id/notes_listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="8dp"
+            android:paddingLeft="9dp"
+            android:scrollbarFadeDuration="1000"
+            android:scrollbarStyle="outsideInset"
+            android:scrollbars="vertical" >
+        </ListView>
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/note_bottom_layout"
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:background="@drawable/bottom_bar"
+        android:gravity="center"
         android:orientation="horizontal"
         android:paddingEnd="90dp"
-        android:paddingStart="90dp"
-        android:background="@drawable/bottom_bar"
-        android:gravity="center" >
+        android:paddingStart="90dp" >
 
         <Button
             android:id="@+id/no_notes_new"
@@ -48,10 +60,9 @@
             android:minHeight="0dp"
             android:minWidth="0dp"
             android:text="@string/new_notes_label"
-            android:textColor="@color/operate_layout_text_color"
-            android:textSize="@dimen/operate_layout_text_size"
             android:textAllCaps="false"
-            />
+            android:textColor="@color/operate_layout_text_color"
+            android:textSize="@dimen/operate_layout_text_size" />
 
         <Button
             android:id="@+id/no_notes_delete"
@@ -64,10 +75,10 @@
             android:minHeight="0dp"
             android:minWidth="0dp"
             android:text="@string/menu_delete"
-            android:textColor="@color/operate_layout_text_color"
-            android:textSize="@dimen/operate_layout_text_size"
             android:textAllCaps="false"
-            />    
+            android:textColor="@color/operate_layout_text_color"
+            android:textSize="@dimen/operate_layout_text_size" />
+
         <Button
             android:id="@+id/delete"
             android:layout_width="wrap_content"
@@ -78,15 +89,11 @@
             android:ellipsize="end"
             android:minHeight="0dp"
             android:minWidth="0dp"
-            android:visibility="gone"
             android:text="@string/delete"
+            android:textAllCaps="false"
             android:textColor="@color/operate_layout_text_color"
             android:textSize="@dimen/operate_layout_text_size"
-            android:textAllCaps="false"
-            />
-
+            android:visibility="gone" />
     </LinearLayout>
-
-
 
 </LinearLayout>
