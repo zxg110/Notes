@@ -7,16 +7,12 @@
     <string name="new_category_notes_label">新建一个记事分类</string>
     <string name="new_notes_label">新建记事</string>
     <string name="directory_name">分类名称</string>
-    <string name="default_category_name">便签夹</string>
-    <string name="category_name_null">便签夹名字不能为空</string>
-    <string name="category_name_exist">便签夹名字已存在</string>
     <string name="select_all">全选</string>
     <string name="select_all_cancel">取消全选</string>
     <string name="alert_dialog_ok">确 定</string>
     <string name="alert_dialog_cancel">取 消</string>
     <string name="notes_change_hint">内容有改动，保存吗？</string>
     <string name="notes_empty_hint">标签内容为空，保存吗？</string>
-    <string name="notes_list_image">[图片]</string>
 
     <!-- menu -->
     <string name="menu_item_call">呼叫</string>
@@ -45,10 +41,6 @@
     <!-- widget -->
     <string name="widget_new">点击编辑记事</string>
     <string name="widget_loading">载入中...</string>
-    <string name="widget_open_failed">不能打开该记事</string>
-    <string name="widget_not_found">找不到该记事项</string>
-    <string name="delete_notification">确认删除所选记事项？</string>
-    <string name="no_category">没有记事分类</string>
     <string name="rename_category_name">重命名记事分类</string>
     <string name="send_by_sms">发送短信</string>
     <string name="send_by_email">发送邮件</string>
@@ -85,61 +77,15 @@
     <string name="disconnect_network">无法下载,请检查网络</string>
     <string name="update_activity_title">检查更新</string>
     <string name="setting_title">设置</string>
-    <string name="setting_previous_version">当前版本</string>
-    <string name="setting_check_update">检查更新</string>
     <string name="setting_about_app">关于软件</string>
     <string name="setting_display">显示</string>
-    <string name="setting_textsize">文字大小</string>
-    <string name="setting_textsize_large">大</string>
-    <string name="setting_textsize_mid">中</string>
-    <string name="setting_textsize_small">小</string>
-    <string name="check_update">立即检查</string>
-    <string name="cancel_update">取消更新</string>
-    <string name="company_description">CopyRight @ 上海斐讯数据通信技术有限公司</string>
-    <string name="checking_update">正在检查更新，请稍后...</string>
-    <string name="toast_hint">当前已经是最新版本了</string>
-    <string name="never_update_yet">还没检查更新过</string>
-    <string name="latest_check_time">最近检查时间:</string>
+    <string name="company_description">CopyRight @ zxg_For_Future</string>
     <string name="release_time">发布时间:</string>
     <string name="note_app">记事本App </string>
-    <string name="check_again">重新检查</string>
-    <string name="dowload_need_sdcard">需要 SD卡才能进行应用更新</string>
-    <string name="update_immediate">立即更新</string>
-    <string name="cancel_download">取消下载</string>
-    <string name="hide_download">隐藏下载</string>
-    <string name="warning_message">确定取消下载吗？</string>
     <string name="warning_title">友情提醒</string>
-    <string name="update_log">修订记事</string>
-    <string name="export_current_note">导出记事</string>
-    <string name="exporting">正在导出记事，请稍等...</string>
-    <string name="export_finish">记事已导出至:</string>
-    <string name="insert_img_from_out">图片</string>
-    <string name="insert_img_from_camera">相机</string>
-    <string name="arrive_max_word_num">输入字数超出上限</string>
-    <string name="can_not_cop_or_cut">文本包含图片不能</string>
+
     <string name="copy">复制</string>
     <string name="cut">剪切</string>
+    <string name="alarm_remind">设置铃声提醒</string>
 
-    <!-- below are not translated yet -->
-    <string name="enough_image">该记事图片够多了哦</string>
-    <string name="whole_enough_image">图片数量达到上限了哦</string>
-    <string name="failed_add_image">添加失败</string>
-    <string name="phicomm_note">斐讯记事本</string>
-    <string name="about_notes">关于</string>
-    <string name="about_copyright">上海斐讯数据通信技术有限公司 版权所有\nCopyright © 2013-2015 Phicomm.   ALL Rights Reserved</string>
-    <string name="paused_notes">记事本(已暂停)</string>
-    <string name="remind_notes">记事本(提醒)</string>
-    <string name="folder_export">移出便签夹</string>
-    <string name="share_way">选择分享方式</string>
-    <string name="no_way_to_share">未找到分享方式</string>
-    <string name="share_notes">分享</string>
-    <string name="import_current_note">导入记事</string>
-    <string name="import_null">导入列表为空，请添加后再导入</string>
-    <string name="export_list">导入文件列表</string>
-    <string name="no_notes_record">无记事项</string>
-    <string name="click_add_notes">轻敲标题条上的按钮已在文本模式下创建记事项 </string>
-    <string name="arrive_max_word_nums">导入字符超出限制，请重新选择</string>
-    <string name="list_no_file">该文件不存在，操作失败</string>
-    <string name="select_notes">选择记事项</string>
-    <string name="import_content_null">导入内容为空，请添加内容后再导入</string>
 </resources>

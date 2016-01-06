@@ -51,7 +51,7 @@
         android:paddingStart="90dp" >
 
         <Button
-            android:id="@+id/no_notes_new"
+            android:id="@+id/new_notes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -65,7 +65,7 @@
             android:textSize="@dimen/operate_layout_text_size" />
 
         <Button
-            android:id="@+id/no_notes_delete"
+            android:id="@+id/to_delete_notes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -80,7 +80,7 @@
             android:textSize="@dimen/operate_layout_text_size" />
 
         <Button
-            android:id="@+id/delete"
+            android:id="@+id/delete_notes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
