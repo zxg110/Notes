@@ -7,8 +7,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class NotesDatabaseHelper extends SQLiteOpenHelper {
     // database name and version
-    private static final String DB_NAME = "notesdata.db";
-    private static final int DB_VERSION = 1;
+//    private static final String DB_NAME = "notesdata.db";
+//    private static final int DB_VERSION = 1;
 
     // table name
     public static final String TB_NOTES = "notes";

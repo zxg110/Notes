@@ -2,16 +2,18 @@ package com.zxg.notes.activity;
 
 import com.zxg.notes.R;
 import com.zxg.notes.interfaces.NotesListViewInterface;
-import com.zxg.notes.presenter.NotesPresenter;
+import com.zxg.notes.presenter.NotesMainPresenter;
 
 import android.os.Bundle;
 import android.app.Activity;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -20,7 +22,7 @@ import android.widget.ListView;
  * NotesListActivity
  * @author zxg
  */
-public class MainActivity extends Activity implements NotesListViewInterface,
+public class NotesMainActivity extends Activity implements NotesListViewInterface,
         OnClickListener {
     // no notes
     private LinearLayout noNotesLayout;
@@ -30,14 +32,16 @@ public class MainActivity extends Activity implements NotesListViewInterface,
     private Button deleteNotes;
     private Button toDeleteNotes;
     // presenter
-    private NotesPresenter notesPresenter = new NotesPresenter(this);
+    private NotesMainPresenter notesMainPresenter; 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
+        notesMainPresenter = new NotesMainPresenter(this,getApplicationContext());
         setContentView(R.layout.activity_main);
         initView();
+        
 
     }
 
@@ -71,7 +75,7 @@ public class MainActivity extends Activity implements NotesListViewInterface,
         int id = v.getId();
         switch (id) {
         case R.id.new_notes:
-            notesPresenter.newNotes();
+            notesMainPresenter.newNotes();
         case R.id.to_delete_notes:
 
         }
@@ -79,8 +83,21 @@ public class MainActivity extends Activity implements NotesListViewInterface,
     }
 
     @Override
-    public void toNotesEditActivity() {
-        Intent intent = new Intent(MainActivity.this, NoteEditActivity.class);
+    public void toNotesEditActivityForNew() {
+        Intent intent = new Intent(NotesMainActivity.this, NoteEditActivity.class);
+        intent.putExtra(NotesMainPresenter.MODE, NotesMainPresenter.NEW_MODE);
         startActivity(intent);
+    }
+
+    @Override
+    public void toNotesEditActivityForEdit() {
+        Intent intent = new Intent(NotesMainActivity.this, NoteEditActivity.class);
+        intent.putExtra(NotesMainPresenter.MODE, NotesMainPresenter.EDIT_MODE);
+        startActivity(intent);
+    }
+
+    @Override
+    public void fillNotesList(BaseAdapter adapter) {
+        
     }
 }
