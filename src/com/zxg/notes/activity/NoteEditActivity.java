@@ -3,11 +3,14 @@ package com.zxg.notes.activity;
 import com.zxg.notes.R;
 import com.zxg.notes.interfaces.NotesEditViewInterface;
 import com.zxg.notes.presenter.NotesEditPresenter;
+import com.zxg.notes.presenter.NotesMainPresenter;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -25,9 +28,21 @@ public class NoteEditActivity extends Activity implements OnClickListener,
     private Button alarmSet;
     private TextView notesEditTime;
     private EditText notesEditText;
-    private String mode;
     // presenter
     private NotesEditPresenter notesEditPresenter;
+    // handler
+    private Handler handler = new Handler() {
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+            case NotesEditPresenter.CONTEXT_IS_EMPTY:
+                String toastContent = getResources().getString(
+                        R.string.notes_empty_hint);
+                Toast.makeText(NoteEditActivity.this, toastContent,
+                        Toast.LENGTH_SHORT).show();
+                break;
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +52,13 @@ public class NoteEditActivity extends Activity implements OnClickListener,
         notesEditPresenter = new NotesEditPresenter(this,
                 getApplicationContext());
         initView();
+        Intent intent = getIntent();
+        if (NotesMainPresenter.EDIT_MODE.equals(intent
+                .getStringExtra(NotesMainPresenter.MODE))) {
+            long notesId = intent.getLongExtra("notes_id", 0);
+            notesEditPresenter.initNotesData(notesId);
+        }
+
     }
 
     private void initView() {
@@ -56,6 +78,8 @@ public class NoteEditActivity extends Activity implements OnClickListener,
         switch (id) {
         case R.id.notes_edit_save:
             notesEditPresenter.saveNotes();
+        case R.id.notes_edit_back:
+            NoteEditActivity.this.finish();
         }
 
     }
@@ -65,15 +89,12 @@ public class NoteEditActivity extends Activity implements OnClickListener,
         return TextUtils.isEmpty(notesEditText.getText());
     }
 
-    @SuppressLint("ShowToast")
     @Override
-    public void showErrorToast(String msg) {
-        String toastContent = null;
-        if (NotesEditPresenter.CONTEXT_IS_EMPTY.equals(msg)) {
-            toastContent = getResources().getString(R.string.notes_empty_hint);
-        }
+    public void showErrorToast(int msg) {
+        Message message = new Message();
+        message.what = NotesEditPresenter.CONTEXT_IS_EMPTY;
+        handler.sendMessage(message);
 
-        Toast.makeText(this, toastContent, Toast.LENGTH_SHORT);
     }
 
     @Override
@@ -98,5 +119,17 @@ public class NoteEditActivity extends Activity implements OnClickListener,
         Intent intent = new Intent(NoteEditActivity.this,
                 NotesMainActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void setContentView(String content) {
+        notesEditText.setText(content);
+
+    }
+
+    @Override
+    public void setTimeView(String time) {
+        notesEditTime.setText(time);
+
     }
 }

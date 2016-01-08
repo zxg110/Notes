@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.zxg.notes.R;
 import com.zxg.notes.bean.Notes;
+import com.zxg.notes.util.DateUtil;
 
 import android.content.Context;
 import android.util.Log;
@@ -18,11 +19,14 @@ import android.widget.TextView;
 public class NotesAdapter extends BaseAdapter {
     final static String TAG = "NotesAdapter";
     List<Notes> notesList = new ArrayList<Notes>();
+    private Context mContext;
     private LayoutInflater mInfalter = null;
 
     public NotesAdapter(List<Notes> list, Context context) {
         notesList = list;
         mInfalter = LayoutInflater.from(context);
+        mContext = context;
+
     }
 
     @Override
@@ -38,7 +42,7 @@ public class NotesAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-        return position;
+        return notesList.get(position).getmId();
     }
 
     @Override
@@ -55,7 +59,8 @@ public class NotesAdapter extends BaseAdapter {
         ImageView mAlarmLaber = (ImageView) convertView
                 .findViewById(R.id.alarm_lable);
         mNotesContent.setText(notes.getmContent());
-        mNotesCreateTime.setText(notes.getmCreateTime() + "");
+        mNotesCreateTime.setText(DateUtil.converTime(mContext,
+                notes.getmCreateTime()));
         if (notes.getmAlarmTime() != 0) {
             mAlarmLaber.setVisibility(View.VISIBLE);
         } else {

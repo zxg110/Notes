@@ -13,17 +13,17 @@ import android.util.Log;
 
 public class NotesDAO {
     final static String TAG = "NotesDAO";
-    private  NotesDatabaseHelper dbHelper = null;
+    private NotesDatabaseHelper dbHelper = null;
     private SQLiteDatabase db = null;
     private ContentValues values;
     private List<Notes> notesList;
 
     public NotesDAO(Context context) {
-        Log.i(TAG, "NotesDAO Context:"+context.toString());
+        Log.i(TAG, "NotesDAO Context:" + context.toString());
         dbHelper = new NotesDatabaseHelper(context, "Notes.db", null, 1);
-        Log.i(TAG, "dbHelper:"+dbHelper.toString());
+        Log.i(TAG, "dbHelper:" + dbHelper.toString());
         db = dbHelper.getWritableDatabase();
-        Log.i(TAG, "db:"+db.toString());
+        Log.i(TAG, "db:" + db.toString());
         values = new ContentValues();
         notesList = new ArrayList<Notes>();
     }
@@ -54,7 +54,7 @@ public class NotesDAO {
         notesList.clear();
         Notes n = null;
         Cursor cur = db.query(NotesDatabaseHelper.TB_NOTES, null, null, null,
-                null, null, null);
+                null, null, NotesDatabaseHelper.CREATE_TIME + " desc");
         while (cur.moveToNext()) {
             n = new Notes();
             n.setmId(cur.getInt(cur.getColumnIndex(NotesDatabaseHelper.ID)));
@@ -70,7 +70,7 @@ public class NotesDAO {
         return notesList;
     }
 
-    public Notes findNotesById(int id) {
+    public Notes findNotesById(long id) {
         notesList.clear();
         Notes n = null;
         Cursor cur = db.query(NotesDatabaseHelper.TB_NOTES, null,
@@ -88,7 +88,6 @@ public class NotesDAO {
             notesList.add(n);
         }
         cur.close();
-        Log.i("333", "size:"+notesList.size());
         return notesList.get(0);
     }
 }

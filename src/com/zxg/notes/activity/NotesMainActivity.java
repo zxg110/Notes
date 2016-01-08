@@ -12,10 +12,13 @@ import android.os.Bundle;
 import android.app.Activity;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -27,6 +30,7 @@ import android.widget.ListView;
  */
 public class NotesMainActivity extends Activity implements
         NotesListViewInterface, OnClickListener {
+    final static String TAG = "NotesMainActivity";
     // no notes
     private LinearLayout noNotesLayout;
     // 备忘录列表
@@ -63,6 +67,16 @@ public class NotesMainActivity extends Activity implements
         toDeleteNotes = (Button) findViewById(R.id.to_delete_notes);
         deleteNotes = (Button) findViewById(R.id.delete_notes);
         newNotes.setOnClickListener(this);
+        notesListView.setOnItemClickListener(new OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1,
+                    int position, long id) {
+                Log.i(TAG, "notesId+++:" + id + " position:" + position);
+                notesMainPresenter.editNotes(id);
+
+            }
+        });
     }
 
     @Override
@@ -95,10 +109,11 @@ public class NotesMainActivity extends Activity implements
     }
 
     @Override
-    public void toNotesEditActivityForEdit() {
+    public void toNotesEditActivityForEdit(long id) {
         Intent intent = new Intent(NotesMainActivity.this,
                 NoteEditActivity.class);
         intent.putExtra(NotesMainPresenter.MODE, NotesMainPresenter.EDIT_MODE);
+        intent.putExtra("notes_id", id);
         startActivity(intent);
     }
 

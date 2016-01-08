@@ -12,7 +12,7 @@
     <string name="alert_dialog_ok">确 定</string>
     <string name="alert_dialog_cancel">取 消</string>
     <string name="notes_change_hint">内容有改动，保存吗？</string>
-    <string name="notes_empty_hint">标签内容为空，保存吗？</string>
+    <string name="notes_empty_hint">标签内容为空,不能保存</string>
 
     <!-- menu -->
     <string name="menu_item_call">呼叫</string>

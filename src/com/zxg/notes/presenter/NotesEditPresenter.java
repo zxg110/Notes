@@ -5,14 +5,16 @@ import java.util.List;
 
 import android.R;
 import android.content.Context;
+import android.util.Log;
 
 import com.zxg.notes.bean.Notes;
 import com.zxg.notes.database.NotesDAO;
 import com.zxg.notes.interfaces.NotesEditViewInterface;
+import com.zxg.notes.util.DateUtil;
 
 public class NotesEditPresenter {
     final static String TAG = "NotesEditPresenter";
-    public static String CONTEXT_IS_EMPTY = "context_is_empty";
+    public final static int CONTEXT_IS_EMPTY = 1;
     public static int NO_CURRENT_NOTES = -1;
     private NotesEditViewInterface notesEditView;
     private List<NotesListUpdateListener> notesListUpdateListener = new ArrayList<NotesListUpdateListener>();
@@ -36,6 +38,7 @@ public class NotesEditPresenter {
     public void saveNotes() {
         Notes notes;
         if (notesEditView.checkContentIsEmpty()) {
+            Log.i(TAG, "EMPTY");
             notesEditView.showErrorToast(CONTEXT_IS_EMPTY);
         } else {
             if (notesEditView.getCurrentNotesId() == NO_CURRENT_NOTES) {
@@ -48,9 +51,10 @@ public class NotesEditPresenter {
                 notes = setNotesData(notes);
                 notesDAO.updateNotes(notes);
             }
+            notifyNotesListUpdateListener();
+            notesEditView.toNotesListView();
         }
-        notifyNotesListUpdateListener();
-        notesEditView.toNotesListView();
+
     }
 
     interface NotesListUpdateListener {
@@ -65,5 +69,12 @@ public class NotesEditPresenter {
         for (NotesListUpdateListener listener : notesListUpdateListener) {
             listener.onNotesListUpdate();
         }
+    }
+
+    public void initNotesData(long id) {
+        Notes currentNotes = notesDAO.findNotesById(id);
+        notesEditView.setContentView(currentNotes.getmContent());
+        notesEditView.setTimeView(DateUtil.converTime(mContext,
+                currentNotes.getmCreateTime()));
     }
 }

@@ -5,11 +5,6 @@ import java.util.List;
 
 import android.content.Context;
 import android.util.Log;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-
-import com.zxg.notes.adapter.NotesAdapter;
 import com.zxg.notes.bean.Notes;
 import com.zxg.notes.database.NotesDAO;
 import com.zxg.notes.interfaces.NotesListViewInterface;
@@ -36,7 +31,6 @@ public class NotesMainPresenter implements NotesListUpdateListener {
 
     public void newNotes() {
         notesListView.toNotesEditActivityForNew();
-        Log.i(TAG, "newNotes");
     }
 
     public void toDeleteNotes() {
@@ -56,6 +50,10 @@ public class NotesMainPresenter implements NotesListUpdateListener {
     @Override
     public void onNotesListUpdate() {
         initNotesListView();
+    }
+
+    public void editNotes(long id) {
+        notesListView.toNotesEditActivityForEdit(id);
     }
 
 }
