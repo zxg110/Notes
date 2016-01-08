@@ -1,5 +1,8 @@
 package com.zxg.notes.presenter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.R;
 import android.content.Context;
 
@@ -12,6 +15,7 @@ public class NotesEditPresenter {
     public static String CONTEXT_IS_EMPTY = "context_is_empty";
     public static int NO_CURRENT_NOTES = -1;
     private NotesEditViewInterface notesEditView;
+    private List<NotesListUpdateListener> notesListUpdateListener = new ArrayList<NotesListUpdateListener>();
     private Context mContext;
     private NotesDAO notesDAO;
 
@@ -22,7 +26,8 @@ public class NotesEditPresenter {
         return notes;
     }
 
-    public NotesEditPresenter(NotesEditViewInterface notesEditViewInterface,Context context) {
+    public NotesEditPresenter(NotesEditViewInterface notesEditViewInterface,
+            Context context) {
         notesEditView = notesEditViewInterface;
         mContext = context;
         notesDAO = new NotesDAO(mContext);
@@ -44,11 +49,21 @@ public class NotesEditPresenter {
                 notesDAO.updateNotes(notes);
             }
         }
-        
+        notifyNotesListUpdateListener();
         notesEditView.toNotesListView();
     }
-    interface NotesUpdateListener{
-        void onNotesUpdate();
+
+    interface NotesListUpdateListener {
+        void onNotesListUpdate();
+    }
+
+    public void addListener(NotesListUpdateListener listener) {
+        notesListUpdateListener.add(listener);
+    }
+
+    private void notifyNotesListUpdateListener() {
+        for (NotesListUpdateListener listener : notesListUpdateListener) {
+            listener.onNotesListUpdate();
+        }
     }
 }
-

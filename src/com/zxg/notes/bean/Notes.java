@@ -44,4 +44,10 @@ public class Notes {
         this.mCreateTime = mCreateTime;
     }
 
+    @Override
+    public String toString() {
+        return "Notes Id:" + mId + " Content:" + mContent + " CreateTime:"
+                + mCreateTime + " AlarmTime:" + mAlarmTime;
+    }
+
 }

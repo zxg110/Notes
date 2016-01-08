@@ -13,8 +13,9 @@ import com.zxg.notes.adapter.NotesAdapter;
 import com.zxg.notes.bean.Notes;
 import com.zxg.notes.database.NotesDAO;
 import com.zxg.notes.interfaces.NotesListViewInterface;
+import com.zxg.notes.presenter.NotesEditPresenter.NotesListUpdateListener;
 
-public class NotesMainPresenter {
+public class NotesMainPresenter implements NotesListUpdateListener {
     final static String TAG = "NotesMainPresenter";
     //
     public static String MODE = "mode";
@@ -29,7 +30,6 @@ public class NotesMainPresenter {
             Context context) {
         notesListView = notesListActivity;
         mContext = context;
-
         Log.i(TAG, "mContext:" + context.toString());
         notesDAO = new NotesDAO(mContext);
     }
@@ -41,6 +41,21 @@ public class NotesMainPresenter {
 
     public void toDeleteNotes() {
 
+    }
+
+    public void initNotesListView() {
+        notesList.clear();
+        notesList = notesDAO.findAllNotes();
+        if (notesList.size() <= 0) {
+            notesListView.showNoNotesImage(true);
+        } else {
+            notesListView.fillNotesListView(notesList);
+        }
+    }
+
+    @Override
+    public void onNotesListUpdate() {
+        initNotesListView();
     }
 
 }
