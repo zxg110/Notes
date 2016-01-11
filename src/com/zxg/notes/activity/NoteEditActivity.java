@@ -31,6 +31,7 @@ public class NoteEditActivity extends Activity implements OnClickListener,
     // presenter
     private NotesEditPresenter notesEditPresenter;
     // handler
+    //git branch test
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
