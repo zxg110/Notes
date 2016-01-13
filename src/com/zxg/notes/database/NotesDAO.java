@@ -36,7 +36,7 @@ public class NotesDAO {
         db.insert(NotesDatabaseHelper.TB_NOTES, null, values);
     }
 
-    public void deleteNotesById(int id) {
+    public void deleteNotesById(long id) {
         db.delete(NotesDatabaseHelper.TB_NOTES, NotesDatabaseHelper.ID
                 + " = ? ", new String[] { id + "" });
     }

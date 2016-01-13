@@ -9,7 +9,7 @@ public interface NotesEditViewInterface {
 
     long getNotesAlarmTime();
 
-    int getCurrentNotesId();
+    long getCurrentNotesId();
 
     void toNotesListView();
 

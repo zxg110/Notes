@@ -13,6 +13,7 @@ import android.app.Activity;
 
 import android.content.Intent;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -22,6 +23,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
 /**
  * NotesListActivity
@@ -36,8 +38,6 @@ public class NotesMainActivity extends Activity implements
     // 备忘录列表
     private ListView notesListView;
     private Button newNotes;
-    private Button deleteNotes;
-    private Button toDeleteNotes;
     // presenter
     private NotesMainPresenter notesMainPresenter;
 
@@ -64,8 +64,6 @@ public class NotesMainActivity extends Activity implements
         noNotesLayout = (LinearLayout) findViewById(R.id.head_view);
         notesListView = (ListView) findViewById(R.id.notes_listview);
         newNotes = (Button) findViewById(R.id.new_notes);
-        toDeleteNotes = (Button) findViewById(R.id.to_delete_notes);
-        deleteNotes = (Button) findViewById(R.id.delete_notes);
         newNotes.setOnClickListener(this);
         notesListView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -94,8 +92,6 @@ public class NotesMainActivity extends Activity implements
         switch (id) {
         case R.id.new_notes:
             notesMainPresenter.newNotes();
-        case R.id.to_delete_notes:
-
         }
 
     }
@@ -107,7 +103,11 @@ public class NotesMainActivity extends Activity implements
         intent.putExtra(NotesMainPresenter.MODE, NotesMainPresenter.NEW_MODE);
         startActivity(intent);
     }
-
+    @Override
+    protected void onStop() {
+        finish();
+        super.onStop();
+    }
     @Override
     public void toNotesEditActivityForEdit(long id) {
         Intent intent = new Intent(NotesMainActivity.this,
@@ -123,5 +123,19 @@ public class NotesMainActivity extends Activity implements
                 getApplicationContext());
         notesListView.setAdapter(notesAdapter);
     }
-
+    private long exitTime = 0;
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN){
+            if(System.currentTimeMillis() - exitTime >2000){
+                Toast.makeText(getApplicationContext(), "再按一次退出程序", Toast.LENGTH_SHORT).show();
+                exitTime = System.currentTimeMillis();
+            }else{
+                finish();
+                System.exit(0);
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 }

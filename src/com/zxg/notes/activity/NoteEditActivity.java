@@ -7,11 +7,14 @@ import com.zxg.notes.presenter.NotesMainPresenter;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -28,10 +31,11 @@ public class NoteEditActivity extends Activity implements OnClickListener,
     private Button alarmSet;
     private TextView notesEditTime;
     private EditText notesEditText;
+    private Button deleteNotes;
+    private long currentNotesId = -1;
     // presenter
     private NotesEditPresenter notesEditPresenter;
     // handler
-    //git branch test
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -56,8 +60,9 @@ public class NoteEditActivity extends Activity implements OnClickListener,
         Intent intent = getIntent();
         if (NotesMainPresenter.EDIT_MODE.equals(intent
                 .getStringExtra(NotesMainPresenter.MODE))) {
-            long notesId = intent.getLongExtra("notes_id", 0);
-            notesEditPresenter.initNotesData(notesId);
+            currentNotesId = intent.getLongExtra("notes_id", 0);
+            deleteNotes.setVisibility(View.VISIBLE);
+            notesEditPresenter.initNotesData(currentNotesId);
         }
 
     }
@@ -66,6 +71,8 @@ public class NoteEditActivity extends Activity implements OnClickListener,
         notesEditBack = (ImageButton) findViewById(R.id.notes_edit_back);
         notesEditSave = (ImageButton) findViewById(R.id.notes_edit_save);
         alarmSet = (Button) findViewById(R.id.alarm_set);
+        deleteNotes = (Button)findViewById(R.id.delete_notes);
+        deleteNotes.setOnClickListener(this);
         notesEditBack.setOnClickListener(this);
         notesEditSave.setOnClickListener(this);
         alarmSet.setOnClickListener(this);
@@ -79,12 +86,41 @@ public class NoteEditActivity extends Activity implements OnClickListener,
         switch (id) {
         case R.id.notes_edit_save:
             notesEditPresenter.saveNotes();
+            NoteEditActivity.this.finish();
+            break;
         case R.id.notes_edit_back:
             NoteEditActivity.this.finish();
+            break;
+        case R.id.delete_notes:
+            makeSureDeleteNotes();
+            break;
         }
 
     }
 
+    private void makeSureDeleteNotes() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getResources().getString(R.string.delete_dialog_title));
+        builder.setMessage(getResources().getString(
+                R.string.delete_dialog_message));
+        builder.setPositiveButton(R.string.sure,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        notesEditPresenter.deleteNote(currentNotesId);
+                    }
+                });
+        builder.setNegativeButton(R.string.cancel,
+                new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+      builder.create().show();
+    }
     @Override
     public boolean checkContentIsEmpty() {
         return TextUtils.isEmpty(notesEditText.getText());
@@ -110,9 +146,8 @@ public class NoteEditActivity extends Activity implements OnClickListener,
     }
 
     @Override
-    public int getCurrentNotesId() {
-        // TODO Auto-generated method stub
-        return -1;
+    public long getCurrentNotesId() {
+        return currentNotesId;
     }
 
     @Override
@@ -125,7 +160,6 @@ public class NoteEditActivity extends Activity implements OnClickListener,
     @Override
     public void setContentView(String content) {
         notesEditText.setText(content);
-
     }
 
     @Override
@@ -133,4 +167,6 @@ public class NoteEditActivity extends Activity implements OnClickListener,
         notesEditTime.setText(time);
 
     }
+
+
 }

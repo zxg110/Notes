@@ -77,4 +77,9 @@ public class NotesEditPresenter {
         notesEditView.setTimeView(DateUtil.converTime(mContext,
                 currentNotes.getmCreateTime()));
     }
+    public void deleteNote(long id){
+        notesDAO.deleteNotesById(id);
+        notifyNotesListUpdateListener();
+        notesEditView.toNotesListView();
+    }
 }

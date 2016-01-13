@@ -59,41 +59,12 @@
             android:drawableTop="@drawable/new_btn_bg"
             android:minHeight="0dp"
             android:minWidth="0dp"
+            android:gravity="center"
             android:text="@string/new_notes_label"
             android:textAllCaps="false"
             android:textColor="@color/operate_layout_text_color"
             android:textSize="@dimen/operate_layout_text_size" />
 
-        <Button
-            android:id="@+id/to_delete_notes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@null"
-            android:drawableTop="@drawable/btn_delete_bg"
-            android:ellipsize="end"
-            android:minHeight="0dp"
-            android:minWidth="0dp"
-            android:text="@string/menu_delete"
-            android:textAllCaps="false"
-            android:textColor="@color/operate_layout_text_color"
-            android:textSize="@dimen/operate_layout_text_size" />
-
-        <Button
-            android:id="@+id/delete_notes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@null"
-            android:drawableTop="@drawable/btn_delete_bg"
-            android:ellipsize="end"
-            android:minHeight="0dp"
-            android:minWidth="0dp"
-            android:text="@string/delete"
-            android:textAllCaps="false"
-            android:textColor="@color/operate_layout_text_color"
-            android:textSize="@dimen/operate_layout_text_size"
-            android:visibility="gone" />
     </LinearLayout>
 
 </LinearLayout>
