@@ -15,11 +15,8 @@
     <string name="notes_empty_hint">标签内容为空,不能保存</string>
 
     <!-- menu -->
-    <string name="menu_item_call">呼叫</string>
     <string name="menu_item_sms">短信</string>
     <string name="menu_item_contact">添加到联系人</string>
-    <string name="menu_item_net">访问网址</string>
-    <string name="menu_item_mail">发送邮件</string>
     <string name="menu_delete">删除记事</string>
     <string name="menu_delete_all">全部删除</string>
     <string name="menu_rename">重命名</string>

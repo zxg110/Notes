@@ -1,6 +1,9 @@
 package com.zxg.notes.activity;
 
+import java.util.Calendar;
+
 import com.zxg.notes.R;
+import com.zxg.notes.adapter.NotesAdapter;
 import com.zxg.notes.interfaces.NotesEditViewInterface;
 import com.zxg.notes.presenter.NotesEditPresenter;
 import com.zxg.notes.presenter.NotesMainPresenter;
@@ -15,13 +18,16 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 public class NoteEditActivity extends Activity implements OnClickListener,
@@ -33,6 +39,7 @@ public class NoteEditActivity extends Activity implements OnClickListener,
     private EditText notesEditText;
     private Button deleteNotes;
     private long currentNotesId = -1;
+    private long currentNotesAlarmTime = -1;
     // presenter
     private NotesEditPresenter notesEditPresenter;
     // handler
@@ -71,7 +78,7 @@ public class NoteEditActivity extends Activity implements OnClickListener,
         notesEditBack = (ImageButton) findViewById(R.id.notes_edit_back);
         notesEditSave = (ImageButton) findViewById(R.id.notes_edit_save);
         alarmSet = (Button) findViewById(R.id.alarm_set);
-        deleteNotes = (Button)findViewById(R.id.delete_notes);
+        deleteNotes = (Button) findViewById(R.id.delete_notes);
         deleteNotes.setOnClickListener(this);
         notesEditBack.setOnClickListener(this);
         notesEditSave.setOnClickListener(this);
@@ -86,14 +93,19 @@ public class NoteEditActivity extends Activity implements OnClickListener,
         switch (id) {
         case R.id.notes_edit_save:
             notesEditPresenter.saveNotes();
+            toNotesListView();
             NoteEditActivity.this.finish();
+
             break;
         case R.id.notes_edit_back:
+            toNotesListView();
             NoteEditActivity.this.finish();
             break;
         case R.id.delete_notes:
             makeSureDeleteNotes();
             break;
+        case R.id.alarm_set:
+            selectAlarmTimeFromDialog();
         }
 
     }
@@ -109,6 +121,7 @@ public class NoteEditActivity extends Activity implements OnClickListener,
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                         notesEditPresenter.deleteNote(currentNotesId);
+                        NoteEditActivity.this.finish();
                     }
                 });
         builder.setNegativeButton(R.string.cancel,
@@ -119,8 +132,9 @@ public class NoteEditActivity extends Activity implements OnClickListener,
                         dialog.dismiss();
                     }
                 });
-      builder.create().show();
+        builder.create().show();
     }
+
     @Override
     public boolean checkContentIsEmpty() {
         return TextUtils.isEmpty(notesEditText.getText());
@@ -141,8 +155,8 @@ public class NoteEditActivity extends Activity implements OnClickListener,
 
     @Override
     public long getNotesAlarmTime() {
-        // TODO Auto-generated method stub
-        return 111100010;
+
+        return currentNotesAlarmTime;
     }
 
     @Override
@@ -168,5 +182,40 @@ public class NoteEditActivity extends Activity implements OnClickListener,
 
     }
 
+    public void selectAlarmTimeFromDialog() {
+        View view = View.inflate(this, R.layout.date_time_picker, null);
+        final DatePicker datePicker = (DatePicker) view
+                .findViewById(R.id.date_picker);
+        final TimePicker timePicker = (TimePicker) view
+                .findViewById(R.id.time_picker);
+        final Calendar calendar = Calendar.getInstance();
+        timePicker.setIs24HourView(true);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getResources().getString(R.string.delete_dialog_title));
+        builder.setView(view);
+        builder.setPositiveButton(R.string.sure,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        calendar.set(datePicker.getYear(),
+                                datePicker.getMonth(),
+                                datePicker.getDayOfMonth(),
+                                timePicker.getCurrentHour(),
+                                timePicker.getCurrentMinute());
+                        currentNotesAlarmTime = calendar.getTimeInMillis();
+                        dialog.dismiss();
+                    }
+                });
+
+        builder.setNegativeButton(R.string.cancel,
+                new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        builder.show();
+    }
 
 }
