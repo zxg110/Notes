@@ -9,6 +9,16 @@ package com.zxg.notes.bean;
 public class Notes {
     private int mId;
     private String mContent;
+    private String mTitle;
+
+    public String getmTitle() {
+        return mTitle;
+    }
+
+    public void setmTitle(String mTitle) {
+        this.mTitle = mTitle;
+    }
+
     private long mAlarmTime;
     private long mCreateTime;
 
@@ -46,7 +56,7 @@ public class Notes {
 
     @Override
     public String toString() {
-        return "Notes Id:" + mId + " Content:" + mContent + " CreateTime:"
+        return "Notes Id:" + mId + "mTitle:"+mTitle+" Content:" + mContent + " CreateTime:"
                 + mCreateTime + " AlarmTime:" + mAlarmTime;
     }
 

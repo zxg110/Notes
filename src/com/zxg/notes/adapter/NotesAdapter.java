@@ -52,13 +52,13 @@ public class NotesAdapter extends BaseAdapter {
         Log.i(TAG, "Notes:" + notes.toString());
         convertView = mInfalter.inflate(R.layout.notes_item, null);
         Log.i(TAG, "convertView" + convertView.toString());
-        TextView mNotesContent = (TextView) convertView
+        TextView mNotesTitle = (TextView) convertView
                 .findViewById(R.id.title_tv);
         TextView mNotesCreateTime = (TextView) convertView
                 .findViewById(R.id.time_tv);
         ImageView mAlarmLaber = (ImageView) convertView
                 .findViewById(R.id.alarm_lable);
-        mNotesContent.setText(notes.getmContent());
+        mNotesTitle.setText(notes.getmTitle());
         mNotesCreateTime.setText(DateUtil.converTime(mContext,
                 notes.getmCreateTime()));
         if (notes.getmAlarmTime() != 0) {

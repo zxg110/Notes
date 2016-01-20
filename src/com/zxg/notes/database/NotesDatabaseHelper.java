@@ -14,13 +14,14 @@ public class NotesDatabaseHelper extends SQLiteOpenHelper {
     public static final String TB_NOTES = "notes";
     // table item name
     public static final String ID = "_id";
+    public static final String TITLE = "title";
     public static final String CONTENT = "content";
     public static final String ALARM_TIME = "alarm_time";
     public static final String CREATE_TIME = "create_time";
 
     // create table expression
     private static final String CREATE_TB_NOTES = " create table " + TB_NOTES
-            + " ( " + ID + " integer primary key autoincrement," + CONTENT
+            + " ( " + ID + " integer primary key autoincrement," + TITLE +" varchar,"+ CONTENT
             + " varchar," + ALARM_TIME + " long," + CREATE_TIME + " long )";
 
     public NotesDatabaseHelper(Context context, String name,

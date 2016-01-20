@@ -42,6 +42,8 @@ public class NoteEditActivity extends Activity implements OnClickListener,
     private long currentNotesAlarmTime = -1;
     // presenter
     private NotesEditPresenter notesEditPresenter;
+    // add field:title
+    private EditText notesTitleText;
     // handler
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
@@ -85,6 +87,8 @@ public class NoteEditActivity extends Activity implements OnClickListener,
         alarmSet.setOnClickListener(this);
         notesEditTime = (TextView) findViewById(R.id.notes_edit_time);
         notesEditText = (EditText) findViewById(R.id.notes_edit_text);
+        // add field:title
+        notesTitleText = (EditText) findViewById(R.id.notes_title_text);
     }
 
     @Override
@@ -92,10 +96,13 @@ public class NoteEditActivity extends Activity implements OnClickListener,
         int id = v.getId();
         switch (id) {
         case R.id.notes_edit_save:
-            notesEditPresenter.saveNotes();
-            toNotesListView();
-            NoteEditActivity.this.finish();
-
+            if (checkContentOrTitleIsEmpty()) {
+                showErrorToast(NotesEditPresenter.CONTEXT_IS_EMPTY);
+            } else {
+                notesEditPresenter.saveNotes();
+                toNotesListView();
+                NoteEditActivity.this.finish();
+            }
             break;
         case R.id.notes_edit_back:
             toNotesListView();
@@ -135,9 +142,9 @@ public class NoteEditActivity extends Activity implements OnClickListener,
         builder.create().show();
     }
 
-    @Override
-    public boolean checkContentIsEmpty() {
-        return TextUtils.isEmpty(notesEditText.getText());
+    private boolean checkContentOrTitleIsEmpty() {
+        return TextUtils.isEmpty(notesEditText.getText())
+                || TextUtils.isEmpty(notesTitleText.getText());
     }
 
     @Override
@@ -216,6 +223,18 @@ public class NoteEditActivity extends Activity implements OnClickListener,
                     }
                 });
         builder.show();
+    }
+
+    @Override
+    public void setTitleView(String title) {
+        notesTitleText.setText(title);
+
+    }
+
+    @Override
+    public String getNotesTitle() {
+        Log.i("111", "TitleText:" + notesTitleText.getText().toString());
+        return notesTitleText.getText().toString();
     }
 
 }

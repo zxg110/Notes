@@ -25,6 +25,9 @@ public class NotesEditPresenter {
         notes.setmContent(notesEditView.getNotesContent());
         notes.setmCreateTime(System.currentTimeMillis());
         notes.setmAlarmTime(notesEditView.getNotesAlarmTime());
+        //add field:title
+        notes.setmTitle(notesEditView.getNotesTitle());
+        Log.i("111", "after set Title:"+notes.getmTitle());
         return notes;
     }
 
@@ -37,23 +40,18 @@ public class NotesEditPresenter {
 
     public void saveNotes() {
         Notes notes;
-        if (notesEditView.checkContentIsEmpty()) {
-            Log.i(TAG, "EMPTY");
-            notesEditView.showErrorToast(CONTEXT_IS_EMPTY);
+
+        if (notesEditView.getCurrentNotesId() == NO_CURRENT_NOTES) {
+            notes = new Notes();
+            notes = setNotesData(notes);
+            notesDAO.insertNotes(notes);
         } else {
-            if (notesEditView.getCurrentNotesId() == NO_CURRENT_NOTES) {
-                notes = new Notes();
-                notes = setNotesData(notes);
-                notesDAO.insertNotes(notes);
-            } else {
-                notes = notesDAO.findNotesById(notesEditView
-                        .getCurrentNotesId());
-                notes = setNotesData(notes);
-                notesDAO.updateNotes(notes);
-            }
-            notifyNotesListUpdateListener();
-            notesEditView.toNotesListView();
+            notes = notesDAO.findNotesById(notesEditView.getCurrentNotesId());
+            notes = setNotesData(notes);
+            notesDAO.updateNotes(notes);
         }
+        notifyNotesListUpdateListener();
+        notesEditView.toNotesListView();
 
     }
 
@@ -76,6 +74,8 @@ public class NotesEditPresenter {
         notesEditView.setContentView(currentNotes.getmContent());
         notesEditView.setTimeView(DateUtil.converTime(mContext,
                 currentNotes.getmCreateTime()));
+        //add field:title
+        notesEditView.setTitleView(currentNotes.getmTitle());
     }
     public void deleteNote(long id){
         notesDAO.deleteNotesById(id);

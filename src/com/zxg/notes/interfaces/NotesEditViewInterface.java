@@ -1,7 +1,6 @@
 package com.zxg.notes.interfaces;
 
 public interface NotesEditViewInterface {
-    boolean checkContentIsEmpty();
 
     void showErrorToast(int msg);
 
@@ -17,4 +16,8 @@ public interface NotesEditViewInterface {
 
     void setTimeView(String time);
 
+    // add field:title
+    void setTitleView(String title);
+
+    String getNotesTitle();
 }

@@ -30,9 +30,11 @@ public class NotesDAO {
 
     public void insertNotes(Notes notes) {
         values.clear();
-        values.put("content", notes.getmContent());
-        values.put("alarm_time", notes.getmAlarmTime());
-        values.put("create_time", notes.getmCreateTime());
+        values.put(NotesDatabaseHelper.CONTENT, notes.getmContent());
+        values.put(NotesDatabaseHelper.ALARM_TIME, notes.getmAlarmTime());
+        values.put(NotesDatabaseHelper.CREATE_TIME, notes.getmCreateTime());
+        // add field:title
+        values.put(NotesDatabaseHelper.TITLE, notes.getmTitle());
         db.insert(NotesDatabaseHelper.TB_NOTES, null, values);
     }
 
@@ -43,9 +45,11 @@ public class NotesDAO {
 
     public void updateNotes(Notes notes) {
         values.clear();
-        values.put("content", notes.getmContent());
-        values.put("alarm_time", notes.getmAlarmTime());
-        values.put("create_time", notes.getmCreateTime());
+        values.put(NotesDatabaseHelper.CONTENT, notes.getmContent());
+        values.put(NotesDatabaseHelper.ALARM_TIME, notes.getmAlarmTime());
+        values.put(NotesDatabaseHelper.CREATE_TIME, notes.getmCreateTime());
+        // add field:title
+        values.put(NotesDatabaseHelper.TITLE, notes.getmTitle());
         db.update(NotesDatabaseHelper.TB_NOTES, values, NotesDatabaseHelper.ID
                 + " = ?", new String[] { notes.getmId() + "" });
     }
@@ -64,6 +68,9 @@ public class NotesDAO {
                     .getColumnIndex(NotesDatabaseHelper.CREATE_TIME)));
             n.setmAlarmTime(cur.getLong(cur
                     .getColumnIndex(NotesDatabaseHelper.ALARM_TIME)));
+            //add field:title
+            n.setmTitle(cur.getString(cur
+                    .getColumnIndex(NotesDatabaseHelper.TITLE)));
             notesList.add(n);
         }
         cur.close();
@@ -85,6 +92,9 @@ public class NotesDAO {
                     .getColumnIndex(NotesDatabaseHelper.CREATE_TIME)));
             n.setmAlarmTime(cur.getLong(cur
                     .getColumnIndex(NotesDatabaseHelper.ALARM_TIME)));
+            //add field:title
+            n.setmTitle(cur.getString(cur
+                    .getColumnIndex(NotesDatabaseHelper.TITLE)));
             notesList.add(n);
         }
         cur.close();
