@@ -20,4 +20,6 @@ public interface NotesEditViewInterface {
     void setTitleView(String title);
 
     String getNotesTitle();
+
+    void setAlarmTime(long alarmTime);
 }

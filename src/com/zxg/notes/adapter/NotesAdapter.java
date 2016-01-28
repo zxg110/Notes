@@ -61,7 +61,7 @@ public class NotesAdapter extends BaseAdapter {
         mNotesTitle.setText(notes.getmTitle());
         mNotesCreateTime.setText(DateUtil.converTime(mContext,
                 notes.getmCreateTime()));
-        if (notes.getmAlarmTime() != 0) {
+        if (notes.getmAlarmTime() != -1) {
             mAlarmLaber.setVisibility(View.VISIBLE);
         } else {
             mAlarmLaber.setVisibility(View.INVISIBLE);

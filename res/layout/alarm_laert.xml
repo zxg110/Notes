@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@null"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/title_layout_height"
+            android:layout_marginLeft="@dimen/layout_margin"
+            android:layout_marginRight="@dimen/layout_margin"
+            android:background="@drawable/bg_dialogue_up"
+            android:orientation="horizontal" >
+
+
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/title_layout_height"
+                android:gravity="center" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/note_remind"
+                    android:textColor="@color/warning_text_color"
+                    android:textSize="16sp" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/line"
+            android:layout_marginLeft="@dimen/layout_margin"
+            android:layout_marginRight="@dimen/layout_margin"
+            android:background="@drawable/divider_popup" />
+
+        <TextView
+            android:id="@+id/note_alarm_title"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/layout_margin"
+            android:layout_marginRight="@dimen/layout_margin"
+            android:background="@drawable/bg_dialogue_btn_mid"
+            android:ellipsize="end"
+            android:lineSpacingExtra="2dp"
+            android:maxLines="4"
+            android:paddingBottom="@dimen/layout_margin"
+            android:paddingLeft="@dimen/padding_margin"
+            android:paddingRight="@dimen/padding_margin"
+            android:paddingTop="@dimen/layout_margin"
+            android:textColor="@color/warning_text_color"
+            android:textSize="@dimen/normal_text_size" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/line"
+            android:layout_marginLeft="@dimen/layout_margin"
+            android:layout_marginRight="@dimen/layout_margin"
+            android:background="@drawable/divider_popup" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/layout_margin"
+            android:layout_marginRight="@dimen/layout_margin"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/note_alarm_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/button_layout_height"
+                android:layout_weight="1"
+                android:background="@drawable/dialog_btn_bg"
+                android:minHeight="0dp"
+                android:minWidth="0dp"
+                android:text="@string/lookinto_detail"
+                android:textColor="@color/btn_normal_text_color"
+                android:textSize="@dimen/normal_text_size" />
+
+            <View
+                android:id="@+id/cut_line"
+                android:layout_width="@dimen/line"
+                android:layout_height="@dimen/button_layout_height"
+                android:layout_toRightOf="@id/note_alarm_detail"
+                android:background="@color/cut_line_color" />
+
+            <Button
+                android:id="@+id/note_alarm_known"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/button_layout_height"
+                android:layout_toRightOf="@id/cut_line"
+                android:layout_weight="1"
+                android:background="@drawable/dialog_btn_right_bg" 
+                android:minHeight="0dp"
+                android:minWidth="0dp"
+                android:text="@string/known"
+                android:textColor="@color/btn_normal_text_color"
+                android:textSize="@dimen/normal_text_size" />
+        </LinearLayout>
+    </LinearLayout>
+
+</FrameLayout>

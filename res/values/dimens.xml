@@ -17,8 +17,8 @@
     <dimen name="color_popwnd_yoff">30dp</dimen>
     <dimen name="insert_img_popwnd_xoff">55dp</dimen>
     <dimen name="insert_img_popwnd_yoff">100dp</dimen>
-    <dimen name="set_alarm_popwnd_xoff">138dp</dimen>
-    <dimen name="set_alarm_popwnd_yoff">258dp</dimen>
+    <dimen name="set_alarm_popwnd_xoff">38dp</dimen>
+    <dimen name="set_alarm_popwnd_yoff">58dp</dimen>
     <dimen name="popwnd_text_size">16sp</dimen>
     <dimen name="popwnd_text_size_for_alarm">16sp</dimen>
     <dimen name="popwnd_pad_tb">6dp</dimen>

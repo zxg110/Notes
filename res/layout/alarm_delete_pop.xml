@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="112dp"
+    android:layout_height="53dp"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="112dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="6dp"
+        android:gravity="center_vertical"
+        android:background="@drawable/bg_droplist_array_middle1"
+        android:orientation="horizontal" >
+            
+        <Button
+            android:id="@+id/popwnd_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:paddingTop="4dp"
+            android:background="@drawable/popwnd_btn_color" 
+            android:paddingLeft="@dimen/popwnd_pad_lr_right"
+            android:paddingRight="@dimen/popwnd_pad_lr_left"
+            android:text="@string/delete"
+            android:textColor="@color/font_size_color"
+            android:textSize="@dimen/popwnd_text_size_for_alarm"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:textAllCaps="false" />
+    </LinearLayout>
+
+</LinearLayout>

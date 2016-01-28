@@ -1,14 +1,18 @@
 package com.zxg.notes.activity;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import com.zxg.notes.R;
 import com.zxg.notes.adapter.NotesAdapter;
 import com.zxg.notes.interfaces.NotesEditViewInterface;
 import com.zxg.notes.presenter.NotesEditPresenter;
 import com.zxg.notes.presenter.NotesMainPresenter;
+import com.zxg.notes.util.AlarmUtil;
 
 import android.annotation.SuppressLint;
+import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -18,14 +22,18 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.MeasureSpec;
 import android.view.View.OnClickListener;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -40,10 +48,14 @@ public class NoteEditActivity extends Activity implements OnClickListener,
     private Button deleteNotes;
     private long currentNotesId = -1;
     private long currentNotesAlarmTime = -1;
+    private PopupWindow mPopWindow;
+    private Button alarmDelete;
     // presenter
     private NotesEditPresenter notesEditPresenter;
     // add field:title
     private EditText notesTitleText;
+    // AlarmUtil
+    AlarmUtil alarmUtil = null;
     // handler
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
@@ -65,11 +77,12 @@ public class NoteEditActivity extends Activity implements OnClickListener,
         setContentView(R.layout.notes_edit_layout);
         notesEditPresenter = new NotesEditPresenter(this,
                 getApplicationContext());
+        alarmUtil = new AlarmUtil(NoteEditActivity.this);
         initView();
         Intent intent = getIntent();
         if (NotesMainPresenter.EDIT_MODE.equals(intent
                 .getStringExtra(NotesMainPresenter.MODE))) {
-            currentNotesId = intent.getLongExtra("notes_id", 0);
+            currentNotesId = intent.getLongExtra("notes_id", -1);
             deleteNotes.setVisibility(View.VISIBLE);
             notesEditPresenter.initNotesData(currentNotesId);
         }
@@ -89,6 +102,7 @@ public class NoteEditActivity extends Activity implements OnClickListener,
         notesEditText = (EditText) findViewById(R.id.notes_edit_text);
         // add field:title
         notesTitleText = (EditText) findViewById(R.id.notes_title_text);
+        initAlarmPopwnd();
     }
 
     @Override
@@ -112,7 +126,39 @@ public class NoteEditActivity extends Activity implements OnClickListener,
             makeSureDeleteNotes();
             break;
         case R.id.alarm_set:
-            selectAlarmTimeFromDialog();
+            if (currentNotesAlarmTime == -1) {
+                selectAlarmTimeFromDialog();
+            } else {
+
+                if (mPopWindow.isShowing()) {
+                    mPopWindow.dismiss();
+                } else {
+                    popupWindowView.measure(MeasureSpec.UNSPECIFIED,
+                            MeasureSpec.UNSPECIFIED);
+                    int popupWidth = popupWindowView.getMeasuredWidth();
+                    int popupHeight = popupWindowView.getMeasuredHeight();
+                    int[] location = new int[2];
+                    alarmSet.getLocationOnScreen(location);
+                    mPopWindow.showAtLocation(alarmSet, Gravity.NO_GRAVITY,
+                            (location[0] + v.getWidth() / 2) - popupWidth / 2,
+                            location[1] - popupHeight);
+                }
+            }
+            break;
+        case R.id.popwnd_delete:
+            Log.i("zxg", "popwnd_delete button clicked");
+            if (currentNotesId == -1) {
+                currentNotesAlarmTime = -1;
+            } else {
+                notesEditPresenter.deleteAlarm((int) currentNotesId,
+                        currentNotesAlarmTime);
+                currentNotesAlarmTime = -1;
+            }
+            Log.i("zxg", "currentNotesAlarmTime：" + currentNotesAlarmTime);
+            if (mPopWindow.isShowing()) {
+                mPopWindow.dismiss();
+            }
+            break;
         }
 
     }
@@ -127,7 +173,7 @@ public class NoteEditActivity extends Activity implements OnClickListener,
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
-                        notesEditPresenter.deleteNote(currentNotesId);
+                        notesEditPresenter.deleteNote((int) currentNotesId);
                         NoteEditActivity.this.finish();
                     }
                 });
@@ -210,6 +256,10 @@ public class NoteEditActivity extends Activity implements OnClickListener,
                                 timePicker.getCurrentHour(),
                                 timePicker.getCurrentMinute());
                         currentNotesAlarmTime = calendar.getTimeInMillis();
+                        Date date = new Date(currentNotesAlarmTime);
+                        SimpleDateFormat sdf = new SimpleDateFormat(
+                                "MM/dd HH:mm");
+                        Log.i("zxg", "format alarm time" + sdf.format(date));
                         dialog.dismiss();
                     }
                 });
@@ -233,8 +283,32 @@ public class NoteEditActivity extends Activity implements OnClickListener,
 
     @Override
     public String getNotesTitle() {
-        Log.i("111", "TitleText:" + notesTitleText.getText().toString());
         return notesTitleText.getText().toString();
+    }
+
+    @Override
+    public void setAlarmTime(long alarmTime) {
+        currentNotesAlarmTime = alarmTime;
+    }
+
+    private View popupWindowView;
+
+    private void initAlarmPopwnd() {
+        LayoutInflater inflater = (LayoutInflater) this
+                .getSystemService(LAYOUT_INFLATER_SERVICE);
+        View layout = inflater.inflate(R.layout.alarm_delete_pop, null);
+        popupWindowView = layout;
+        mPopWindow = new PopupWindow(layout, LayoutParams.WRAP_CONTENT,
+                LayoutParams.WRAP_CONTENT, true);
+        mPopWindow.setFocusable(true);
+        alarmDelete = (Button) layout.findViewById(R.id.popwnd_delete);
+        alarmDelete.setOnClickListener(this);
+        mPopWindow.setOutsideTouchable(true);
+        mPopWindow.setInputMethodMode(PopupWindow.INPUT_METHOD_NEEDED);
+        mPopWindow
+                .setInputMethodMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        mPopWindow.setBackgroundDrawable(getResources().getDrawable(
+                R.drawable.bg_transparent));
     }
 
 }

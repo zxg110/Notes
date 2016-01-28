@@ -16,5 +16,7 @@
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
-
+        <!-- style for AlarmAlertActivity -->
+        <style name="App.Theme.Holo.Wallpaper.NoTitleBar" parent="@android:style/Theme.Holo.Wallpaper.NoTitleBar">
+    </style>
 </resources>

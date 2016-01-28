@@ -103,11 +103,13 @@ public class NotesMainActivity extends Activity implements
         intent.putExtra(NotesMainPresenter.MODE, NotesMainPresenter.NEW_MODE);
         startActivity(intent);
     }
+
     @Override
     protected void onStop() {
         finish();
         super.onStop();
     }
+
     @Override
     public void toNotesEditActivityForEdit(long id) {
         Intent intent = new Intent(NotesMainActivity.this,
@@ -123,14 +125,18 @@ public class NotesMainActivity extends Activity implements
                 getApplicationContext());
         notesListView.setAdapter(notesAdapter);
     }
+
     private long exitTime = 0;
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if(keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN){
-            if(System.currentTimeMillis() - exitTime >2000){
-                Toast.makeText(getApplicationContext(), "再按一次退出程序", Toast.LENGTH_SHORT).show();
+        if (keyCode == KeyEvent.KEYCODE_BACK
+                && event.getAction() == KeyEvent.ACTION_DOWN) {
+            if (System.currentTimeMillis() - exitTime > 2000) {
+                Toast.makeText(getApplicationContext(), "再按一次退出程序",
+                        Toast.LENGTH_SHORT).show();
                 exitTime = System.currentTimeMillis();
-            }else{
+            } else {
                 finish();
                 System.exit(0);
             }

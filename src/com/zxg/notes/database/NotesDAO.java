@@ -68,7 +68,7 @@ public class NotesDAO {
                     .getColumnIndex(NotesDatabaseHelper.CREATE_TIME)));
             n.setmAlarmTime(cur.getLong(cur
                     .getColumnIndex(NotesDatabaseHelper.ALARM_TIME)));
-            //add field:title
+            // add field:title
             n.setmTitle(cur.getString(cur
                     .getColumnIndex(NotesDatabaseHelper.TITLE)));
             notesList.add(n);
@@ -92,12 +92,27 @@ public class NotesDAO {
                     .getColumnIndex(NotesDatabaseHelper.CREATE_TIME)));
             n.setmAlarmTime(cur.getLong(cur
                     .getColumnIndex(NotesDatabaseHelper.ALARM_TIME)));
-            //add field:title
+            // add field:title
             n.setmTitle(cur.getString(cur
                     .getColumnIndex(NotesDatabaseHelper.TITLE)));
             notesList.add(n);
         }
         cur.close();
         return notesList.get(0);
+    }
+
+    public int findLastInsertNotesId() {
+        String sql = "select last_insert_rowid() from "
+                + NotesDatabaseHelper.TB_NOTES;
+        notesList.clear();
+        Cursor cur = db.rawQuery(sql, null);
+        if (cur.moveToFirst()) {
+            Log.i("zxg", "last insert notes id:" + cur.getInt(0));
+            int id = cur.getInt(0);
+            cur.close();
+            return id;
+        }
+        cur.close();
+        return -1;
     }
 }
