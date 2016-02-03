@@ -32,7 +32,7 @@ public class AlarmUtil {
         Notes notes = notesDAO.findNotesById((long)noteId);
         Intent intent = new Intent(mContext,AlarmAlertActivity.class);
         intent.setAction("note alarm id is"+Integer.toString(noteId));
-        intent.putExtra("alarmid", noteId);
+        intent.putExtra("noteId", noteId);
         intent.putExtra("alarmTitle", notes.getmTitle());
         mSender = PendingIntent.getActivity(mContext, 0, intent, 0);
         if(flag == SET_ALARM){

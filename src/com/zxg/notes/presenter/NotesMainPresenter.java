@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.telephony.gsm.SmsManager;
 import android.util.Log;
+
+import com.zxg.notes.R;
 import com.zxg.notes.bean.Notes;
 import com.zxg.notes.database.NotesDAO;
 import com.zxg.notes.interfaces.NotesListViewInterface;
@@ -44,6 +47,24 @@ public class NotesMainPresenter implements NotesListUpdateListener {
             notesListView.showNoNotesImage(true);
         } else {
             notesListView.fillNotesListView(notesList);
+        }
+    }
+
+    public void sendMessage(String phoneNum, int notesId) {
+        Log.i("zxg", "phoneNum:" + phoneNum);
+        Notes notes = notesDAO.findNotesById((long) notesId);
+        String smsContent = mContext.getResources().getString(R.string.title)
+                + notes.getmTitle() + "\n"
+                + mContext.getResources().getString(R.string.content)
+                + notes.getmContent();
+        SmsManager smsManager = SmsManager.getDefault();
+        if (smsContent.length() > 70) {
+            List<String> contents = smsManager.divideMessage(smsContent);
+            for (String sms : contents) {
+                smsManager.sendTextMessage(phoneNum, null, sms, null, null);
+            }
+        } else {
+            smsManager.sendTextMessage(phoneNum, null, smsContent, null, null);
         }
     }
 

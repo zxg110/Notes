@@ -83,6 +83,7 @@ public class NoteEditActivity extends Activity implements OnClickListener,
         if (NotesMainPresenter.EDIT_MODE.equals(intent
                 .getStringExtra(NotesMainPresenter.MODE))) {
             currentNotesId = intent.getLongExtra("notes_id", -1);
+            Log.i("zxg", "currentNotesId"+currentNotesId);
             deleteNotes.setVisibility(View.VISIBLE);
             notesEditPresenter.initNotesData(currentNotesId);
         }

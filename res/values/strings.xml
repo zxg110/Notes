@@ -76,5 +76,12 @@
     <!-- add for add field title -->
     <string name="input_title">输入标题</string>
     <string name="input_content">输入内容</string>
+    <string name="select_operate">选择操作</string>
+    <string name="message_share">短信分享</string>
+    <string name="delete_notes">删除该条</string>
+    <string name="send_message_confirm">发送给好友</string>
+    <string name="send">发送</string>
+    <string name="title">标题:</string>
+    <string name="content">内容:</string>
 
 </resources>

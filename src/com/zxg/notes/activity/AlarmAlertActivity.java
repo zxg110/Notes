@@ -52,7 +52,8 @@ public class AlarmAlertActivity extends Activity implements OnClickListener {
         }
         Intent intent = getIntent();
         titleView.setText(intent.getStringExtra("alarmTitle"));
-        notesId = intent.getIntExtra("alarmid", 1);
+        notesId = intent.getIntExtra("noteId", 1);
+        Log.i("zxg", "AlarmAlertnoteId:"+notesId);
         Log.i("zxg", "AlarmAlertActivity onCreated...");
     }
 
@@ -93,7 +94,7 @@ public class AlarmAlertActivity extends Activity implements OnClickListener {
                     NoteEditActivity.class);
             intent.putExtra(NotesMainPresenter.MODE,
                     NotesMainPresenter.EDIT_MODE);
-            intent.putExtra("notes_id", notesId);
+            intent.putExtra("notes_id", (long)notesId);
             startActivity(intent);
             alarmMusic.stop();
             finish();
