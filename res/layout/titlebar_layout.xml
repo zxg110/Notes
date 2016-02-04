@@ -20,15 +20,9 @@
                 android:layout_height="@dimen/logo_img_layout_height"
                 android:layout_gravity="center_vertical"
                 android:layout_margin="@dimen/image_margin"
-                android:background="@drawable/ic_notes"
-                android:visibility="invisible" />
+                android:background="@drawable/app"
+                android:visibility="visible" />
 
- <!--           <com.phicomm.library.back.PhiBackView
-                android:id="@+id/back_btn_layout"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content" >  
-
-            </com.phicomm.library.back.PhiBackView> --> 
 
 			<!-- 记事本标题布局 -->
             <RelativeLayout
@@ -53,20 +47,7 @@
                 android:layout_height="@dimen/button_layout_height"
                 android:gravity="center_vertical" >
 
-                <Button
-                    android:id="@+id/select_all_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="@dimen/select_all_btn_marginRight"
-                    android:background="@null"
-                    android:drawableRight="@drawable/btn_select_all"
-                    android:minHeight="0dp"
-                    android:minWidth="0dp"
-                    android:text="@string/select_all"
-                    android:textColor="@color/font_size_color"
-                    android:textSize="@dimen/select_all_btn_text_size"
-                    android:visibility="invisible" />
+
             </RelativeLayout>
         </RelativeLayout>
 

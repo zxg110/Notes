@@ -69,6 +69,7 @@ public class NotesEditPresenter {
             // 设置新闹铃
             alarmUtil.setAlarmRemind(AlarmUtil.SET_ALARM,
                     notes.getmAlarmTime(), notes.getmId());
+
             notesDAO.updateNotes(notes);
         }
         notifyNotesListUpdateListener();

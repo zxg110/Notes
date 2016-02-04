@@ -185,7 +185,7 @@ public class NotesMainActivity extends Activity implements
     @Override
     public void showNoNotesImage(boolean isShow) {
         if (isShow) {
-            noNotesLayout.setVisibility(View.VISIBLE);
+            noNotesLayout.setVisibility(View.INVISIBLE);
         } else if (!isShow) {
             noNotesLayout.setVisibility(View.INVISIBLE);
         }

@@ -1,17 +1,12 @@
 package com.zxg.notes.activity;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
-
 import com.zxg.notes.R;
-import com.zxg.notes.adapter.NotesAdapter;
 import com.zxg.notes.interfaces.NotesEditViewInterface;
 import com.zxg.notes.presenter.NotesEditPresenter;
 import com.zxg.notes.presenter.NotesMainPresenter;
 import com.zxg.notes.util.AlarmUtil;
 
-import android.annotation.SuppressLint;
 import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -83,7 +78,7 @@ public class NoteEditActivity extends Activity implements OnClickListener,
         if (NotesMainPresenter.EDIT_MODE.equals(intent
                 .getStringExtra(NotesMainPresenter.MODE))) {
             currentNotesId = intent.getLongExtra("notes_id", -1);
-            Log.i("zxg", "currentNotesId"+currentNotesId);
+            Log.i("zxg", "currentNotesId" + currentNotesId);
             deleteNotes.setVisibility(View.VISIBLE);
             notesEditPresenter.initNotesData(currentNotesId);
         }
@@ -245,7 +240,7 @@ public class NoteEditActivity extends Activity implements OnClickListener,
         final Calendar calendar = Calendar.getInstance();
         timePicker.setIs24HourView(true);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(getResources().getString(R.string.delete_dialog_title));
+        builder.setTitle(getResources().getString(R.string.set_alarm_time));
         builder.setView(view);
         builder.setPositiveButton(R.string.sure,
                 new DialogInterface.OnClickListener() {
@@ -256,12 +251,19 @@ public class NoteEditActivity extends Activity implements OnClickListener,
                                 datePicker.getDayOfMonth(),
                                 timePicker.getCurrentHour(),
                                 timePicker.getCurrentMinute());
-                        currentNotesAlarmTime = calendar.getTimeInMillis();
-                        Date date = new Date(currentNotesAlarmTime);
-                        SimpleDateFormat sdf = new SimpleDateFormat(
-                                "MM/dd HH:mm");
-                        Log.i("zxg", "format alarm time" + sdf.format(date));
-                        dialog.dismiss();
+
+                        if (calendar.getTimeInMillis() < System
+                                .currentTimeMillis()) {
+                            Toast.makeText(
+                                    NoteEditActivity.this,
+                                    getResources().getString(
+                                            R.string.alarm_time),
+                                    Toast.LENGTH_SHORT).show();
+                        } else {
+                            dialog.dismiss();
+                            currentNotesAlarmTime = calendar.getTimeInMillis();
+                        }
+
                     }
                 });
 
