@@ -22,4 +22,9 @@ public interface NotesEditViewInterface {
     String getNotesTitle();
 
     void setAlarmTime(long alarmTime);
+
+    // add field:visible
+
+    int getVisible();
+
 }

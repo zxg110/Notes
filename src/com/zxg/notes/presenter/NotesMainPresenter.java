@@ -1,6 +1,7 @@
 package com.zxg.notes.presenter;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import android.content.Context;
@@ -19,6 +20,9 @@ public class NotesMainPresenter implements NotesListUpdateListener {
     public static String MODE = "mode";
     public static String EDIT_MODE = "edit";
     public static String NEW_MODE = "new";
+    public static String VISIBLE = "visible";
+    public static String PRIVATE = "private";
+    public static String PUBLIC = "public";
     private NotesListViewInterface notesListView;
     private List<Notes> notesList = new ArrayList<Notes>();
     private Context mContext;
@@ -36,18 +40,27 @@ public class NotesMainPresenter implements NotesListUpdateListener {
         notesListView.toNotesEditActivityForNew();
     }
 
-    public void toDeleteNotes() {
-
-    }
-
-    public void initNotesListView() {
+    public void initNotesListView(String visible) {
         notesList.clear();
         notesList = notesDAO.findAllNotes();
-        if (notesList.size() <= 0) {
-            notesListView.showNoNotesImage(true);
-        } else {
-            notesListView.fillNotesListView(notesList);
+        Iterator<Notes> iter = notesList.iterator();
+        if (visible.equals(NotesMainPresenter.PRIVATE)) {
+            while (iter.hasNext()) {
+                Notes notes = iter.next();
+                if (notes.getmVisible() == NotesEditPresenter.VISIBLE_PUBLIC) {
+                    iter.remove();
+                }
+            }
+        } else if (visible.equals(NotesMainPresenter.PUBLIC)) {
+            while (iter.hasNext()) {
+                Notes notes = iter.next();
+                if (notes.getmVisible() == NotesEditPresenter.VISIBLE_PRIVATE) {
+                    iter.remove();
+                }
+            }
         }
+        notesListView.fillNotesListView(notesList);
+
     }
 
     public void sendMessage(String phoneNum, int notesId) {
@@ -70,7 +83,7 @@ public class NotesMainPresenter implements NotesListUpdateListener {
 
     @Override
     public void onNotesListUpdate() {
-        initNotesListView();
+        initNotesListView(NotesMainPresenter.PUBLIC);
     }
 
     public void editNotes(long id) {

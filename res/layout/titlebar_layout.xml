@@ -33,6 +33,7 @@
 
                 <TextView
                     android:id="@+id/title_name_tv"
+                    android:clickable="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"

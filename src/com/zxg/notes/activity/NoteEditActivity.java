@@ -51,6 +51,8 @@ public class NoteEditActivity extends Activity implements OnClickListener,
     private EditText notesTitleText;
     // AlarmUtil
     AlarmUtil alarmUtil = null;
+    // isPrivateNotes
+    private boolean isPrivateNotes = false;
     // handler
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
@@ -73,8 +75,14 @@ public class NoteEditActivity extends Activity implements OnClickListener,
         notesEditPresenter = new NotesEditPresenter(this,
                 getApplicationContext());
         alarmUtil = new AlarmUtil(NoteEditActivity.this);
-        initView();
         Intent intent = getIntent();
+        if (NotesMainPresenter.PRIVATE.equals(intent
+                .getStringExtra(NotesMainPresenter.VISIBLE))) {
+            isPrivateNotes = true;
+
+        }
+        Log.i("zxg", "isPrivateNotes:" + isPrivateNotes);
+        initView();
         if (NotesMainPresenter.EDIT_MODE.equals(intent
                 .getStringExtra(NotesMainPresenter.MODE))) {
             currentNotesId = intent.getLongExtra("notes_id", -1);
@@ -99,6 +107,11 @@ public class NoteEditActivity extends Activity implements OnClickListener,
         // add field:title
         notesTitleText = (EditText) findViewById(R.id.notes_title_text);
         initAlarmPopwnd();
+        if (isPrivateNotes == true) {
+            alarmSet.setVisibility(View.GONE);
+            notesEditTime.setText(getResources().getString(
+                    R.string.new_private_notes));
+        }
     }
 
     @Override
@@ -110,7 +123,6 @@ public class NoteEditActivity extends Activity implements OnClickListener,
                 showErrorToast(NotesEditPresenter.CONTEXT_IS_EMPTY);
             } else {
                 notesEditPresenter.saveNotes();
-                toNotesListView();
                 NoteEditActivity.this.finish();
             }
             break;
@@ -217,6 +229,10 @@ public class NoteEditActivity extends Activity implements OnClickListener,
     public void toNotesListView() {
         Intent intent = new Intent(NoteEditActivity.this,
                 NotesMainActivity.class);
+        if (isPrivateNotes == true) {
+            intent.putExtra(NotesMainPresenter.VISIBLE,
+                    NotesMainPresenter.PRIVATE);
+        }
         startActivity(intent);
     }
 
@@ -312,6 +328,15 @@ public class NoteEditActivity extends Activity implements OnClickListener,
                 .setInputMethodMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         mPopWindow.setBackgroundDrawable(getResources().getDrawable(
                 R.drawable.bg_transparent));
+    }
+
+    @Override
+    public int getVisible() {
+        if (isPrivateNotes == true) {
+            return NotesEditPresenter.VISIBLE_PRIVATE;
+        } else {
+            return NotesEditPresenter.VISIBLE_PUBLIC;
+        }
     }
 
 }

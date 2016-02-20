@@ -19,6 +19,9 @@ public class NotesEditPresenter {
     final static String TAG = "NotesEditPresenter";
     public final static int CONTEXT_IS_EMPTY = 1;
     public static int NO_CURRENT_NOTES = -1;
+    // visible
+    public static int VISIBLE_PRIVATE = 0;
+    public static int VISIBLE_PUBLIC = 1;
     private NotesEditViewInterface notesEditView;
     private List<NotesListUpdateListener> notesListUpdateListener = new ArrayList<NotesListUpdateListener>();
     private Context mContext;
@@ -31,7 +34,9 @@ public class NotesEditPresenter {
         notes.setmAlarmTime(notesEditView.getNotesAlarmTime());
         // add field:title
         notes.setmTitle(notesEditView.getNotesTitle());
-        Log.i("111", "after set Title:" + notes.getmTitle());
+        // add field:visible
+        notes.setmVisible(notesEditView.getVisible());
+        Log.i("zxg", "setNotesData visible:" + notesEditView.getVisible());
         return notes;
     }
 
@@ -73,6 +78,7 @@ public class NotesEditPresenter {
             notesDAO.updateNotes(notes);
         }
         notifyNotesListUpdateListener();
+        Log.i("zxg", "save notes visible:" + notes.getmVisible());
         notesEditView.toNotesListView();
 
     }

@@ -51,5 +51,17 @@
     <string name="send">发送</string>
     <string name="title">标题:</string>
     <string name="content">内容:</string>
-
+    <string name="private_dialog_message">输入密码进入私密日记</string>
+    <string name="password">填写密码</string>
+    <string name="private_notes">私密日记</string>
+    <string name="new_private_notes">新建日记</string>
+    <string name="return_notes">返回备忘录？</string>
+    <string name="modify_password">修改密码</string>
+    <string name="old_password">输入旧密码</string>
+    <string name="new_password">输入新密码</string>
+    <string name="new_password_again">确认新密码</string>
+    <string name="exit">再按一次退出程序</string>
+    <string name="modify_password_success">修改密码成功</string>
+    <string name="modify_password_failed">旧密码不正确或两次输入新密码不相同</string>
+    <string name="pwd_wrong">密码错误！</string>
 </resources>

@@ -11,6 +11,18 @@ public class Notes {
     private String mContent;
     private String mTitle;
 
+    private long mAlarmTime;
+    private long mCreateTime;
+    private int mVisible;
+
+    public int getmVisible() {
+        return mVisible;
+    }
+
+    public void setmVisible(int mVisible) {
+        this.mVisible = mVisible;
+    }
+
     public String getmTitle() {
         return mTitle;
     }
@@ -18,9 +30,6 @@ public class Notes {
     public void setmTitle(String mTitle) {
         this.mTitle = mTitle;
     }
-
-    private long mAlarmTime;
-    private long mCreateTime;
 
     public int getmId() {
         return mId;
@@ -56,8 +65,8 @@ public class Notes {
 
     @Override
     public String toString() {
-        return "Notes Id:" + mId + "mTitle:"+mTitle+" Content:" + mContent + " CreateTime:"
-                + mCreateTime + " AlarmTime:" + mAlarmTime;
+        return "Notes Id:" + mId + "mTitle:" + mTitle + " Content:" + mContent
+                + " CreateTime:" + mCreateTime + " AlarmTime:" + mAlarmTime;
     }
 
 }

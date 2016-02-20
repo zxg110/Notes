@@ -35,6 +35,8 @@ public class NotesDAO {
         values.put(NotesDatabaseHelper.CREATE_TIME, notes.getmCreateTime());
         // add field:title
         values.put(NotesDatabaseHelper.TITLE, notes.getmTitle());
+        // add field:visible
+        values.put(NotesDatabaseHelper.VISIBLE, notes.getmVisible());
         db.insert(NotesDatabaseHelper.TB_NOTES, null, values);
     }
 
@@ -50,6 +52,8 @@ public class NotesDAO {
         values.put(NotesDatabaseHelper.CREATE_TIME, notes.getmCreateTime());
         // add field:title
         values.put(NotesDatabaseHelper.TITLE, notes.getmTitle());
+        // add field:visible
+        values.put(NotesDatabaseHelper.VISIBLE, notes.getmVisible());
         db.update(NotesDatabaseHelper.TB_NOTES, values, NotesDatabaseHelper.ID
                 + " = ?", new String[] { notes.getmId() + "" });
     }
@@ -71,6 +75,9 @@ public class NotesDAO {
             // add field:title
             n.setmTitle(cur.getString(cur
                     .getColumnIndex(NotesDatabaseHelper.TITLE)));
+            // add field:visible
+            n.setmVisible(cur.getInt(cur
+                    .getColumnIndex(NotesDatabaseHelper.VISIBLE)));
             notesList.add(n);
         }
         cur.close();
@@ -95,6 +102,9 @@ public class NotesDAO {
             // add field:title
             n.setmTitle(cur.getString(cur
                     .getColumnIndex(NotesDatabaseHelper.TITLE)));
+            // add field:visible
+            n.setmVisible(cur.getInt(cur
+                    .getColumnIndex(NotesDatabaseHelper.VISIBLE)));
             notesList.add(n);
         }
         cur.close();
