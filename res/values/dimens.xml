@@ -28,12 +28,8 @@
     <dimen name="image_margin">12dp</dimen>
     <dimen name="no_note_pic_marginTop">114dp</dimen>
     <dimen name="no_notes_new_text_size">19sp</dimen>
-
-
     <dimen name="time_tv_text_size">12sp</dimen>
-
     <dimen name="operate_layout_text_size">14dp</dimen>
-
     <dimen name="select_all_btn_marginRight">8dp</dimen>
     <dimen name="new_note_imgb_marginRight">20dp</dimen>
     <dimen name="logo_img_layout_width">36dp</dimen>
