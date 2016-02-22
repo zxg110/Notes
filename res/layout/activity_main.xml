@@ -4,7 +4,6 @@
     android:id="@+id/linearlayout_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_texture"
     android:orientation="vertical"
     tools:context=".MainActivity" >
 

@@ -4,21 +4,7 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 	 <dimen name="scroll_margin_bottom">50dp</dimen>
-    <dimen name="pic_width_gap">140dp</dimen>
-    <dimen name="pic_max_height">200dp</dimen>
-    <dimen name="alarm_scale">17dp</dimen>
     <dimen name="edittext_line_height_extra">2dp</dimen>
-    <dimen name="image_edge">19dp</dimen>
-    <dimen name="image_edge_horizontal">9dp</dimen>
-    <dimen name="image_edge_vertical">6dp</dimen>
-    <dimen name="btn_padding_lr">15dp</dimen>
-    <dimen name="btn_padding_tb">8dp</dimen>
-    <dimen name="color_popwnd_xoff">160dp</dimen>
-    <dimen name="color_popwnd_yoff">30dp</dimen>
-    <dimen name="insert_img_popwnd_xoff">55dp</dimen>
-    <dimen name="insert_img_popwnd_yoff">100dp</dimen>
-    <dimen name="set_alarm_popwnd_xoff">38dp</dimen>
-    <dimen name="set_alarm_popwnd_yoff">58dp</dimen>
     <dimen name="popwnd_text_size">16sp</dimen>
     <dimen name="popwnd_text_size_for_alarm">16sp</dimen>
     <dimen name="popwnd_pad_tb">6dp</dimen>
@@ -42,13 +28,12 @@
     <dimen name="image_margin">12dp</dimen>
     <dimen name="no_note_pic_marginTop">114dp</dimen>
     <dimen name="no_notes_new_text_size">19sp</dimen>
-    <dimen name="no_notes_new_marginBottom">47dp</dimen>
-    <dimen name="no_notes_new_marginLeft">108dp</dimen>
+
+
     <dimen name="time_tv_text_size">12sp</dimen>
-    <dimen name="operate_layout_margin">40dp</dimen>
+
     <dimen name="operate_layout_text_size">14dp</dimen>
-    <dimen name="select_all_btn_text_size">16dp</dimen>
-    <dimen name="alert_dialog_btn_text_size">16dp</dimen>
+
     <dimen name="select_all_btn_marginRight">8dp</dimen>
     <dimen name="new_note_imgb_marginRight">20dp</dimen>
     <dimen name="logo_img_layout_width">36dp</dimen>
@@ -61,7 +46,6 @@
     <dimen name="button_text_size">16sp</dimen>
     <dimen name="normal_title_text_size">18sp</dimen>
     <dimen name="title_text_size_for_new_notes_label">18dp</dimen>
-    <dimen name="normal_title_text_size_for_set_alarm_time">18dp</dimen>
-    <dimen name="font_size_pop_xoff">-40dp</dimen>
-    <dimen name="font_size_pop_yoff">92dp</dimen>
+
+
 </resources>
