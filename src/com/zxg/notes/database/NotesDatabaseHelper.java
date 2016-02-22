@@ -6,9 +6,6 @@ import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class NotesDatabaseHelper extends SQLiteOpenHelper {
-    // database name and version
-    // private static final String DB_NAME = "notesdata.db";
-    // private static final int DB_VERSION = 1;
 
     // table name
     public static final String TB_NOTES = "notes";
@@ -21,6 +18,7 @@ public class NotesDatabaseHelper extends SQLiteOpenHelper {
     public static final String VISIBLE = "visible";
 
     // create table expression
+    //建表语句
     private static final String CREATE_TB_NOTES = " create table " + TB_NOTES
             + " ( " + ID + " integer primary key autoincrement," + TITLE
             + " varchar," + CONTENT + " varchar," + VISIBLE + " integer,"
@@ -30,13 +28,13 @@ public class NotesDatabaseHelper extends SQLiteOpenHelper {
             CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
-
+    //第一次创建数据时执行该方法，该方法中执行建表语句，进行建表
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TB_NOTES);
 
     }
-
+    //数据库升级时使用
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("drop table if exists" + TB_NOTES);

@@ -27,7 +27,7 @@ public class NotesDAO {
         values = new ContentValues();
         notesList = new ArrayList<Notes>();
     }
-
+    //插入备忘录方法
     public void insertNotes(Notes notes) {
         values.clear();
         values.put(NotesDatabaseHelper.CONTENT, notes.getmContent());
@@ -39,12 +39,12 @@ public class NotesDAO {
         values.put(NotesDatabaseHelper.VISIBLE, notes.getmVisible());
         db.insert(NotesDatabaseHelper.TB_NOTES, null, values);
     }
-
+    //通过Id删除备忘录方法
     public void deleteNotesById(long id) {
         db.delete(NotesDatabaseHelper.TB_NOTES, NotesDatabaseHelper.ID
                 + " = ? ", new String[] { id + "" });
     }
-
+    //更新备忘录方法
     public void updateNotes(Notes notes) {
         values.clear();
         values.put(NotesDatabaseHelper.CONTENT, notes.getmContent());
@@ -57,7 +57,7 @@ public class NotesDAO {
         db.update(NotesDatabaseHelper.TB_NOTES, values, NotesDatabaseHelper.ID
                 + " = ?", new String[] { notes.getmId() + "" });
     }
-
+    //查询全部备忘录，放入List集合中
     public List<Notes> findAllNotes() {
         notesList.clear();
         Notes n = null;
@@ -83,7 +83,7 @@ public class NotesDAO {
         cur.close();
         return notesList;
     }
-
+    //根据Id查询备忘录方法
     public Notes findNotesById(long id) {
         notesList.clear();
         Notes n = null;
@@ -110,7 +110,7 @@ public class NotesDAO {
         cur.close();
         return notesList.get(0);
     }
-
+    //查询最新插入的备忘录数据方法
     public int findLastInsertNotesId() {
         String sql = "select last_insert_rowid() from "
                 + NotesDatabaseHelper.TB_NOTES;

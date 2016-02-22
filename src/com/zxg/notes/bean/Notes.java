@@ -2,11 +2,12 @@ package com.zxg.notes.bean;
 
 /**
  * java bean Notes
- * 
+ *
  * @author zxg
- * 
+ *
  */
 public class Notes {
+    //
     private int mId;
     private String mContent;
     private String mTitle;

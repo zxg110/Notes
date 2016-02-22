@@ -4,7 +4,6 @@ import java.util.List;
 import com.zxg.notes.bean.Notes;
 
 public interface NotesListViewInterface {
-    void showNoNotesImage(boolean isShow);
 
     void toNotesEditActivityForNew();
 

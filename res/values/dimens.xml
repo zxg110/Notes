@@ -39,7 +39,7 @@
     <dimen name="line">1px</dimen>
     <dimen name="layout_margin">16dp</dimen>
     <dimen name="padding_margin">24dp</dimen>
-    <dimen name="image_margin">8dp</dimen>
+    <dimen name="image_margin">12dp</dimen>
     <dimen name="no_note_pic_marginTop">114dp</dimen>
     <dimen name="no_notes_new_text_size">19sp</dimen>
     <dimen name="no_notes_new_marginBottom">47dp</dimen>
