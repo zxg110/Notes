@@ -1,5 +1,7 @@
 package com.zxg.notes.database;
-
+/**
+ * 访问数据库DAO(Data Access Object)
+ */
 import java.util.ArrayList;
 import java.util.List;
 

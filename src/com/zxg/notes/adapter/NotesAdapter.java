@@ -1,5 +1,7 @@
 package com.zxg.notes.adapter;
-
+/**
+ * adapter:用于装配ListView，每一个item显示一个便签
+ */
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +38,6 @@ public class NotesAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        // TODO Auto-generated method stub
         return null;
     }
 
@@ -44,14 +45,14 @@ public class NotesAdapter extends BaseAdapter {
     public long getItemId(int position) {
         return notesList.get(position).getmId();
     }
-
+    //重写该方法，设置item的显示
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-
+        //获取该位置需要显示的便签
         Notes notes = notesList.get(position);
-        Log.i(TAG, "Notes:" + notes.toString());
+        //加载item布局
         convertView = mInfalter.inflate(R.layout.notes_item, null);
-        Log.i(TAG, "convertView" + convertView.toString());
+        //设置布局
         TextView mNotesTitle = (TextView) convertView
                 .findViewById(R.id.title_tv);
         TextView mNotesCreateTime = (TextView) convertView

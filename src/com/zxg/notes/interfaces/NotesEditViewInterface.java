@@ -1,5 +1,10 @@
 package com.zxg.notes.interfaces;
-
+/**
+ * 编辑界面接口，该接口定义了编辑界面需要实现的方法，NotesEditActivity
+ * 实现该接口
+ * @author zxg
+ *
+ */
 public interface NotesEditViewInterface {
 
     void showErrorToast(int msg);

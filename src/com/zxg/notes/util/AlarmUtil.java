@@ -11,7 +11,11 @@ import android.content.Intent;
 import android.os.SystemClock;
 import android.provider.Settings.System;
 import android.util.Log;
-
+/**
+ * 设置提醒工具类
+ * @author zxg
+ *
+ */
 public class AlarmUtil {
     private Context mContext;
     public final static int SET_ALARM = 0;
@@ -24,9 +28,9 @@ public class AlarmUtil {
         mAlarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
         notesDAO = new NotesDAO(mContext);
     }
+    //设置或取消提醒方法(根据参数flag来决定是设置还是取消，millsec是提醒的时间点，noteId用来标记闹铃)
     public void setAlarmRemind(int flag,long millsec,int noteId){
         if(millsec <0){
-            Log.i("zxg", "flag:"+flag+"millsec <0 return");
             return;
         }
         Notes notes = notesDAO.findNotesById((long)noteId);
@@ -37,10 +41,8 @@ public class AlarmUtil {
         mSender = PendingIntent.getActivity(mContext, 0, intent, 0);
         if(flag == SET_ALARM){
             mAlarmManager.set(AlarmManager.RTC_WAKEUP, millsec, mSender);
-            Log.i("zxg", "alarm is started noteId:"+noteId);
         }else if(flag == CANCEL_ALARM){
             mAlarmManager.cancel(mSender);
-            Log.i("zxg", "alarm is stop noteId:"+noteId);
         }
         
     }

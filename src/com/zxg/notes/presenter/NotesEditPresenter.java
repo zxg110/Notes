@@ -1,5 +1,7 @@
 package com.zxg.notes.presenter;
-
+/**
+ * Presenter:该类封装了NotesEditActivity需要用到的一些方法
+ */
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -23,11 +25,10 @@ public class NotesEditPresenter {
     public static int VISIBLE_PRIVATE = 0;
     public static int VISIBLE_PUBLIC = 1;
     private NotesEditViewInterface notesEditView;
-    private List<NotesListUpdateListener> notesListUpdateListener = new ArrayList<NotesListUpdateListener>();
     private Context mContext;
     private NotesDAO notesDAO;
     private AlarmUtil alarmUtil;
-
+    //填充notes数据方法
     private Notes setNotesData(Notes notes) {
         notes.setmContent(notesEditView.getNotesContent());
         notes.setmCreateTime(System.currentTimeMillis());
@@ -47,18 +48,14 @@ public class NotesEditPresenter {
         notesDAO = new NotesDAO(mContext);
         alarmUtil = new AlarmUtil(mContext);
     }
-
+    //保存便签方法
     public void saveNotes() {
         Notes notes;
         if (notesEditView.getCurrentNotesId() == NO_CURRENT_NOTES) {
             notes = new Notes();
             notes = setNotesData(notes);
             notesDAO.insertNotes(notes);
-            Date date = new Date(notes.getmAlarmTime());
-            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd HH:mm");
-            Log.i("zxg", "format alarm time:" + sdf.format(date));
             int currentId = notesDAO.findLastInsertNotesId();
-            Log.i("zxg", "presenter last insert notes id:" + currentId);
             // set alarm
             alarmUtil.setAlarmRemind(AlarmUtil.SET_ALARM,
                     notes.getmAlarmTime(), currentId);
@@ -77,26 +74,11 @@ public class NotesEditPresenter {
 
             notesDAO.updateNotes(notes);
         }
-        notifyNotesListUpdateListener();
-        Log.i("zxg", "save notes visible:" + notes.getmVisible());
+
         notesEditView.toNotesListView();
 
     }
-
-    interface NotesListUpdateListener {
-        void onNotesListUpdate();
-    }
-
-    public void addListener(NotesListUpdateListener listener) {
-        notesListUpdateListener.add(listener);
-    }
-
-    private void notifyNotesListUpdateListener() {
-        for (NotesListUpdateListener listener : notesListUpdateListener) {
-            listener.onNotesListUpdate();
-        }
-    }
-
+    //初始化便签数据方法
     public void initNotesData(long id) {
         Notes currentNotes = notesDAO.findNotesById(id);
         notesEditView.setContentView(currentNotes.getmContent());
@@ -107,17 +89,16 @@ public class NotesEditPresenter {
         notesEditView.setTitleView(currentNotes.getmTitle());
 
     }
-
+    //删除便签方法
     public void deleteNote(int id) {
         Notes notes = notesDAO.findNotesById(id);
         // 取消闹钟
         alarmUtil.setAlarmRemind(AlarmUtil.CANCEL_ALARM, notes.getmAlarmTime(),
                 id);
         notesDAO.deleteNotesById(id);
-        notifyNotesListUpdateListener();
         notesEditView.toNotesListView();
     }
-
+    //删除闹钟提醒方法
     public void deleteAlarm(int noteId, long alarmTime) {
         alarmUtil.setAlarmRemind(AlarmUtil.CANCEL_ALARM, alarmTime, noteId);
     }

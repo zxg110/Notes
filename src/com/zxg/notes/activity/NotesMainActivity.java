@@ -123,6 +123,8 @@ public class NotesMainActivity extends Activity implements
         newNotes.setText(getResources().getString(R.string.new_private_notes));
         //设置修改密码按钮可见
         modifyPassword.setVisibility(View.VISIBLE);
+        //设置privateSpace的Text为返回便签
+        privateSpace.setText(getResources().getString(R.string.back_notes));
     }
 
     @Override

@@ -55,7 +55,7 @@
     <string name="password">填写密码</string>
     <string name="private_notes">私密日记</string>
     <string name="new_private_notes">新建日记</string>
-    <string name="return_notes">返回备忘录？</string>
+    <string name="return_notes">返回便签？</string>
     <string name="modify_password">修改密码</string>
     <string name="old_password">输入旧密码</string>
     <string name="new_password">输入新密码</string>
@@ -66,4 +66,5 @@
     <string name="pwd_wrong">密码错误！</string>
     <string name="private_text">私密空间</string>
     <string name="delete_private_notes">删除日记</string>
+    <string name="back_notes">返回便签</string>
 </resources>

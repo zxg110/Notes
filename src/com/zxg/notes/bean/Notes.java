@@ -7,15 +7,19 @@ package com.zxg.notes.bean;
  *
  */
 public class Notes {
-    //
+    //便签Id
     private int mId;
+    //便签内容
     private String mContent;
+    //便签标题
     private String mTitle;
-
+    //便签提醒时间
     private long mAlarmTime;
+    //便签创建(修改)时间
     private long mCreateTime;
+    //便签可见性
     private int mVisible;
-
+    //get set方法
     public int getmVisible() {
         return mVisible;
     }

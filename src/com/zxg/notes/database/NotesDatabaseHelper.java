@@ -1,5 +1,7 @@
 package com.zxg.notes.database;
-
+/**
+ * 创建数据库工具类
+ */
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;

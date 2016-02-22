@@ -1,5 +1,7 @@
 package com.zxg.notes.activity;
-
+/**
+ *便签提醒activity
+ */
 import android.app.Activity;
 import android.app.KeyguardManager;
 import android.app.KeyguardManager.KeyguardLock;
@@ -19,29 +21,43 @@ import com.zxg.notes.R;
 import com.zxg.notes.presenter.NotesMainPresenter;
 
 public class AlarmAlertActivity extends Activity implements OnClickListener {
+    //键盘管理器
     private KeyguardManager km;
+    //键盘锁
     private KeyguardLock kl;
+    //电源管理器
     private PowerManager pm;
+    //唤醒锁
     private PowerManager.WakeLock wl;
+    //便签Id
     private int notesId;
+    //我知道了按钮
     private Button dialogKnown;
+    //查看详情按钮
     private Button dialogDetail;
+    //显示便签标题的TextView
     private TextView titleView;
+    //播放的音乐
     private MediaPlayer alarmMusic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
+        //加载布局
         setContentView(R.layout.alarm_laert);
+        //初始化控件
         dialogKnown = (Button) findViewById(R.id.note_alarm_known);
         dialogDetail = (Button) findViewById(R.id.note_alarm_detail);
         titleView = (TextView) findViewById(R.id.note_alarm_title);
         dialogKnown.setOnClickListener(this);
         dialogDetail.setOnClickListener(this);
+        //初始化管理器
         initManager();
+        //唤醒屏幕
         wakeAndUnlockScreen();
+        //创建音乐
         alarmMusic = new MediaPlayer();
+        //播放音乐
         try {
             alarmMusic.setDataSource(this,
                     RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM));
@@ -51,10 +67,9 @@ public class AlarmAlertActivity extends Activity implements OnClickListener {
             e.printStackTrace();
         }
         Intent intent = getIntent();
+        //设置标题
         titleView.setText(intent.getStringExtra("alarmTitle"));
         notesId = intent.getIntExtra("noteId", 1);
-        Log.i("zxg", "AlarmAlertnoteId:"+notesId);
-        Log.i("zxg", "AlarmAlertActivity onCreated...");
     }
 
     private void initManager() {
@@ -80,15 +95,17 @@ public class AlarmAlertActivity extends Activity implements OnClickListener {
             kl.disableKeyguard();
         }
     }
-
+    //监听屏幕点击事件
     @Override
     public void onClick(View v) {
         int id = v.getId();
         switch (id) {
+        //点击到：我知道了 按钮 结束该界面
         case R.id.note_alarm_known:
             alarmMusic.stop();
             finish();
             break;
+        //点击到：查看详情按钮：打开该便签的编辑界面
         case R.id.note_alarm_detail:
             Intent intent = new Intent(AlarmAlertActivity.this,
                     NoteEditActivity.class);
