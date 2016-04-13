@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.media.RingtoneManager;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.PowerManager;
 import android.util.Log;
 import android.view.View;
@@ -39,7 +40,21 @@ public class AlarmAlertActivity extends Activity implements OnClickListener {
     private TextView titleView;
     //播放的音乐
     private MediaPlayer alarmMusic;
+    //保存闹铃级别的变量,默认为重
+    private int level = 0;
+    //用于铃声计时的控件
+    private CountDownTimer timer = new CountDownTimer(60000,1000) {
+        @Override
+        public void onTick(long millisUntilFinished) {
 
+        }
+        //当倒计时60000毫秒（一分钟）后，调用该方法
+        @Override
+        public void onFinish() {
+            alarmMusic.stop();
+            finish();
+        }
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +85,12 @@ public class AlarmAlertActivity extends Activity implements OnClickListener {
         //设置标题
         titleView.setText(intent.getStringExtra("alarmTitle"));
         notesId = intent.getIntExtra("noteId", 1);
+        level = intent.getIntExtra("alarm_level", 0);
+        Log.i("zxg", "level in alarm_activity:"+level);
+        //如果级别为轻，开启倒计时
+        if( level == 1){
+            timer.start();
+        }
     }
 
     private void initManager() {
@@ -104,6 +125,7 @@ public class AlarmAlertActivity extends Activity implements OnClickListener {
         case R.id.note_alarm_known:
             alarmMusic.stop();
             finish();
+            timer.cancel();
             break;
         //点击到：查看详情按钮：打开该便签的编辑界面
         case R.id.note_alarm_detail:
@@ -115,6 +137,7 @@ public class AlarmAlertActivity extends Activity implements OnClickListener {
             startActivity(intent);
             alarmMusic.stop();
             finish();
+            timer.cancel();
         default:
             break;
         }

@@ -58,19 +58,19 @@ public class NotesEditPresenter {
             int currentId = notesDAO.findLastInsertNotesId();
             // set alarm
             alarmUtil.setAlarmRemind(AlarmUtil.SET_ALARM,
-                    notes.getmAlarmTime(), currentId);
+                    notes.getmAlarmTime(), currentId,notesEditView.getAlarmLevel());
 
         } else {
             notes = notesDAO.findNotesById(notesEditView.getCurrentNotesId());
             // 如果提醒时间改变了，首先取消原先的闹铃
             if (notes.getmAlarmTime() != notesEditView.getNotesAlarmTime()) {
                 alarmUtil.setAlarmRemind(AlarmUtil.CANCEL_ALARM,
-                        notes.getmAlarmTime(), notes.getmId());
+                        notes.getmAlarmTime(), notes.getmId(),0);
             }
             notes = setNotesData(notes);
             // 设置新闹铃
             alarmUtil.setAlarmRemind(AlarmUtil.SET_ALARM,
-                    notes.getmAlarmTime(), notes.getmId());
+                    notes.getmAlarmTime(), notes.getmId(),notesEditView.getAlarmLevel());
 
             notesDAO.updateNotes(notes);
         }
@@ -94,12 +94,12 @@ public class NotesEditPresenter {
         Notes notes = notesDAO.findNotesById(id);
         // 取消闹钟
         alarmUtil.setAlarmRemind(AlarmUtil.CANCEL_ALARM, notes.getmAlarmTime(),
-                id);
+                id,0);
         notesDAO.deleteNotesById(id);
         notesEditView.toNotesListView();
     }
     //删除闹钟提醒方法
     public void deleteAlarm(int noteId, long alarmTime) {
-        alarmUtil.setAlarmRemind(AlarmUtil.CANCEL_ALARM, alarmTime, noteId);
+        alarmUtil.setAlarmRemind(AlarmUtil.CANCEL_ALARM, alarmTime, noteId,0);
     }
 }

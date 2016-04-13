@@ -1,11 +1,6 @@
 package com.zxg.notes.activity;
 
 import java.util.Calendar;
-import com.zxg.notes.R;
-import com.zxg.notes.interfaces.NotesEditViewInterface;
-import com.zxg.notes.presenter.NotesEditPresenter;
-import com.zxg.notes.presenter.NotesMainPresenter;
-import com.zxg.notes.util.AlarmUtil;
 
 import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
@@ -29,9 +24,17 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.PopupWindow;
+import android.widget.RadioGroup;
+import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
+
+import com.zxg.notes.R;
+import com.zxg.notes.interfaces.NotesEditViewInterface;
+import com.zxg.notes.presenter.NotesEditPresenter;
+import com.zxg.notes.presenter.NotesMainPresenter;
+import com.zxg.notes.util.AlarmUtil;
 
 public class NoteEditActivity extends Activity implements OnClickListener,
         NotesEditViewInterface {
@@ -61,6 +64,9 @@ public class NoteEditActivity extends Activity implements OnClickListener,
     private EditText notesTitleText;
     // AlarmUtil 该工具用于设置提醒时间
     AlarmUtil alarmUtil = null;
+
+    //保存闹铃级别的变量值：0：重 1：轻，默认为重
+    int level = 0;
     // isPrivateNotes 判断当前界面是否为私密日记修改界面，默认为false
     private boolean isPrivateNotes = false;
     // handler
@@ -80,6 +86,7 @@ public class NoteEditActivity extends Activity implements OnClickListener,
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //隐藏标题栏
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         //加载布局
         setContentView(R.layout.notes_edit_layout);
@@ -124,6 +131,7 @@ public class NoteEditActivity extends Activity implements OnClickListener,
         alarmSet.setOnClickListener(this);
         notesEditTime = (TextView) findViewById(R.id.notes_edit_time);
         notesEditText = (EditText) findViewById(R.id.notes_edit_text);
+
         // add field:title
         notesTitleText = (EditText) findViewById(R.id.notes_title_text);
         //初始化设置了便签提醒后再次点击设置提醒按钮所弹出的删除菜单
@@ -133,8 +141,8 @@ public class NoteEditActivity extends Activity implements OnClickListener,
             //将设置提醒按钮设置为不显示
             alarmSet.setVisibility(View.GONE);
             //上方中央标题设置为私密日记
-            notesEditTime.setText(getResources().getString(
-                    R.string.new_private_notes));
+            notesEditTime.setText(
+                    R.string.new_private_notes);
             //删除按钮的Text设置为删除日记
             deleteNotes.setText(getResources().getString(R.string.delete_private_notes));
         }
@@ -294,6 +302,8 @@ public class NoteEditActivity extends Activity implements OnClickListener,
                 .findViewById(R.id.date_picker);
         final TimePicker timePicker = (TimePicker) view
                 .findViewById(R.id.time_picker);
+        //闹铃级别radioGroup
+        final RadioGroup levelRadioGroup = (RadioGroup)view.findViewById(R.id.level_radio);
         final Calendar calendar = Calendar.getInstance();
         timePicker.setIs24HourView(true);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -323,6 +333,15 @@ public class NoteEditActivity extends Activity implements OnClickListener,
 
                     }
                 });
+        levelRadioGroup.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if(checkedId == R.id.light){
+                    level = 1;
+                }
+            }
+        });
 
         builder.setNegativeButton(R.string.cancel,
                 new DialogInterface.OnClickListener() {
@@ -378,6 +397,10 @@ public class NoteEditActivity extends Activity implements OnClickListener,
         } else {
             return NotesEditPresenter.VISIBLE_PUBLIC;
         }
+    }
+    @Override
+    public int getAlarmLevel() {
+        return level;
     }
 
 }

@@ -4,7 +4,34 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical" >
-
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="horizontal" >
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/level"/>
+    <RadioGroup
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/level_radio"
+        >
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/weighty"
+            android:id="@+id/weighty"/>
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/light"
+            android:id="@+id/light" />
+    </RadioGroup>
+    </LinearLayout>
     <DatePicker
         android:id="@+id/date_picker"
         android:layout_width="wrap_content"

@@ -10,8 +10,6 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal" >
-
-
         <TextView
             android:id="@+id/title_tv"
             android:layout_width="0dip"
@@ -28,15 +26,13 @@
             android:textColor="@color/font_size_color"
             android:textSize="14sp" />
     </LinearLayout>
-
-    <View
+        <View
         android:layout_width="fill_parent"
         android:layout_height="@dimen/line"
         android:layout_marginLeft="9dp"
         android:layout_marginRight="9dp"
         android:background="@drawable/divider_popup"
         android:gravity="bottom" />
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="32dp" >

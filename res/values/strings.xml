@@ -67,4 +67,7 @@
     <string name="private_text">私密空间</string>
     <string name="delete_private_notes">删除日记</string>
     <string name="back_notes">返回便签</string>
+    <string name="level">级别：</string>
+    <string name="light">轻</string>
+    <string name="weighty">重</string>
 </resources>

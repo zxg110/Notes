@@ -31,5 +31,7 @@ public interface NotesEditViewInterface {
     // add field:visible
 
     int getVisible();
+    //获取提醒级别：
+    int getAlarmLevel();
 
 }

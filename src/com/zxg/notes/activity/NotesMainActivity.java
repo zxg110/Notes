@@ -74,7 +74,7 @@ public class NotesMainActivity extends Activity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //取消activity上方的标题
+        //隐藏activity上方的标题栏
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         //创建Presenter，Presenter中封装了该页面需要用到的方法
         notesMainPresenter = new NotesMainPresenter(this,
@@ -381,8 +381,9 @@ public class NotesMainActivity extends Activity implements
                                     NotesMainActivity.class);
                             intent.putExtra(NotesMainPresenter.VISIBLE,
                                     NotesMainPresenter.PRIVATE);
-                            finish();
+                            //finish();
                             startActivity(intent);
+                            //finish();
                         } else {
                             Toast.makeText(
                                     getApplicationContext(),
